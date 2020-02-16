@@ -14,8 +14,8 @@ namespace PulsePI.Controllers
         }
 
 
-        string name { get; set; }
-        int age { get; set; }
+        public string name { get; set; }
+        public int age { get; set; }
 
     }
 }

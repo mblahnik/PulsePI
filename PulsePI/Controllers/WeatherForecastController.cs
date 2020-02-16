@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PulsePI.DataAccess.DaoInterfaces;
+using PulsePI.Models;
 
 namespace PulsePI.Controllers
 {
@@ -11,6 +13,8 @@ namespace PulsePI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        readonly IAccountDao accountDao;
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -18,22 +22,16 @@ namespace PulsePI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IAccountDao dao)
         {
             _logger = logger;
+            accountDao = dao;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+        public IEnumerable<Account> Get()
+        { 
+            return accountDao.GetAllAccounts();
         }
     }
 }
