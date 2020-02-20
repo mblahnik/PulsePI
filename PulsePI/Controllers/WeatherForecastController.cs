@@ -29,9 +29,9 @@ namespace PulsePI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Account> Get()
-        { 
-            return accountDao.GetAllAccounts();
+        public IEnumerable<string> Get()
+        {
+            return new List<string> {"This","Controller","shouldn't","be","used" };
         }
     }
 }
