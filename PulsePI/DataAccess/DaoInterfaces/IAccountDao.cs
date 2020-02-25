@@ -8,6 +8,6 @@ namespace PulsePI.DataAccess.DaoInterfaces
 {
     public interface IAccountDao
     {
-        IList<Account> GetAllAccounts();
+        
     }
 }
