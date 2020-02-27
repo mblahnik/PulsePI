@@ -1,6 +1,4 @@
-﻿
-
-namespace PulsePI.Models
+﻿namespace PulsePI.Models
 {
     public class Account
     {

@@ -1,16 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using PulsePI.DataContracts;
+using PulsePI.Service.ServiceInterfaces;
 
 namespace PulsePI.Controllers
 {
+
+    //Reveives a post request containing username and password 
     [Route("api/account")]
     public class AccountController : Controller
     {
-       
-        [HttpPost("login")]
-        public string Login()
+        IAccountService _accountService;
+
+        public AccountController(IAccountService acc)
         {
-            return "string";
+            _accountService = acc;
+        }
+
+        [HttpPost("login")]
+        public LoginData Login([FromBody] LoginData contract)
+        {
+            return contract;
         }
 
 

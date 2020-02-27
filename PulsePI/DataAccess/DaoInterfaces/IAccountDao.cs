@@ -1,4 +1,5 @@
-﻿using PulsePI.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using PulsePI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace PulsePI.DataAccess.DaoInterfaces
 {
     public interface IAccountDao
     {
-        
+
     }
 }
