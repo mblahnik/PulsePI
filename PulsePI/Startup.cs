@@ -8,6 +8,7 @@ using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataAccess;
 using PulsePI.Service.ServiceInterfaces;
 using PulsePI.Service;
+using System.IO;
 
 namespace PulsePI
 {
@@ -39,11 +40,25 @@ namespace PulsePI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.Use(async (context, next) => {
+                await next();
+                if(context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value) && !context.Request.Path.Value.StartsWith("/api/"))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+
+            });
+            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
