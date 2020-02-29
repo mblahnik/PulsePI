@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Autofac;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataAccess;
+using PulsePI.Service.ServiceInterfaces;
+using PulsePI.Service;
 using System.IO;
 
 namespace PulsePI
@@ -25,7 +27,9 @@ namespace PulsePI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<IAccountDao,AccountDao>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
