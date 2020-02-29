@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataContracts;
+using PulsePI.MessageContracts;
 using PulsePI.Service.ServiceInterfaces;
 
 namespace PulsePI.Controllers
@@ -17,9 +19,9 @@ namespace PulsePI.Controllers
         }
 
         [HttpPost("login")]
-        public LoginData Login([FromBody] LoginData contract)
+        public async Task<LoginMessage> Login([FromBody] LoginData contract)
         {
-            return contract;
+            return await _accountService.Login(contract);
         }
 
 

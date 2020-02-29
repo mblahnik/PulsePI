@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataAccess.DaoInterfaces;
+using PulsePI.DataContracts;
+using PulsePI.MessageContracts;
 using PulsePI.Models;
 using PulsePI.Service.ServiceInterfaces;
 
@@ -16,9 +19,12 @@ namespace PulsePI.Service
             _accountDao = a;
         }
 
-        public JsonResult Login()
+        public async Task<LoginMessage> Login(LoginData ld)
         {
-            return new JsonResult("string");
+            return new LoginMessage()
+            {
+                username = ld.username
+            };
         }
 
 
