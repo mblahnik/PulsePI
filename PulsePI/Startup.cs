@@ -9,6 +9,7 @@ using PulsePI.DataAccess;
 using PulsePI.Service.ServiceInterfaces;
 using PulsePI.Service;
 using System.IO;
+using PulsePI.Models;
 
 namespace PulsePI
 {
@@ -29,7 +30,6 @@ namespace PulsePI
             services.AddControllers();
             services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<IAccountDao,AccountDao>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
