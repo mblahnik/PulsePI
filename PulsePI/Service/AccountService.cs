@@ -21,10 +21,7 @@ namespace PulsePI.Service
 
         public async Task<LoginMessage> Login(LoginData ld)
         {
-            return new LoginMessage()
-            {
-                username = ld.username
-            };
+            return await _accountDao.Login(ld);
         }
 
 
