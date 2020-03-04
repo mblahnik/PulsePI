@@ -4,7 +4,7 @@ namespace PulsePI.Models
 {
     public class Account
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string firstName { get; set; }

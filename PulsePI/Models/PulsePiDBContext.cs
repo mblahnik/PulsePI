@@ -6,6 +6,7 @@ namespace PulsePI.Models
     public class PulsePiDBContext : DbContext
     {
         public DbSet<Account> accounts { get; set; }
+        public DbSet<HeartRateRecord> heartRateRecords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
