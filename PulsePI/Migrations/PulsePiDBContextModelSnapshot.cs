@@ -21,9 +21,10 @@ namespace PulsePI.Migrations
 
             modelBuilder.Entity("PulsePI.Models.Account", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("avatarUrl")
                         .HasColumnType("nvarchar(max)");
@@ -52,50 +53,6 @@ namespace PulsePI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("accounts");
-                });
-
-            modelBuilder.Entity("PulsePI.Models.HeartRateRecord", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("accountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("bpmAvg")
-                        .HasColumnType("float");
-
-                    b.Property<double>("bpmHigh")
-                        .HasColumnType("float");
-
-                    b.Property<double>("bpmLow")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("endTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("startTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("type")
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("accountId");
-
-                    b.ToTable("heartRateRecords");
-                });
-
-            modelBuilder.Entity("PulsePI.Models.HeartRateRecord", b =>
-                {
-                    b.HasOne("PulsePI.Models.Account", "account")
-                        .WithMany()
-                        .HasForeignKey("accountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
