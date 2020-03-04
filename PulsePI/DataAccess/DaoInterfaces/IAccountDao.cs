@@ -11,6 +11,6 @@ namespace PulsePI.DataAccess.DaoInterfaces
 {
     public interface IAccountDao
     {
-        Task<LoginMessage> Login(LoginData ld);
+        Task<LoginMessage> Login(string username, string password);
     }
 }
