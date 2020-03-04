@@ -23,5 +23,6 @@
     <Folder Include="Service\ServiceInterfaces\" />
     <Folder Include="DataContracts\" />
     <Folder Include="MessageContracts\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 </Project>
