@@ -6,10 +6,10 @@ namespace PulsePI.Models
 {
     public class HeartRateRecord
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public Account account { get; set; }
         [ForeignKey("Account")]
-        public Guid accountId { get; set; }
+        public int accountId { get; set; }
         [StringLength(25)]
         public string type { get; set; }
         public DateTime startTime { get; set; }
