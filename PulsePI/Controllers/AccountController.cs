@@ -38,6 +38,16 @@ namespace PulsePI.Controllers
         [HttpPost("createAccount")]
         public async Task<IActionResult> CreateAccount([FromBody] CreateAccountData accData)
         {
+            CreateAccountMessage cam = null;
+            try
+            {
+                cam = await _accountService.CreateAccount(accData);
+            }
+            catch (Exception)
+            {
+                return BadRequest(cam);
+            }
+            return Ok(cam);
 
         }
     }
