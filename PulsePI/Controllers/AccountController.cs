@@ -35,6 +35,10 @@ namespace PulsePI.Controllers
             return Ok(acc);
         }
 
+        [HttpPost("createAccount")]
+        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountData accData)
+        {
 
+        }
     }
 }
