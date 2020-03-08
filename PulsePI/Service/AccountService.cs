@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataContracts;
+using PulsePI.Exceptions;
 using PulsePI.MessageContracts;
 using PulsePI.Models;
 using PulsePI.Service.ServiceInterfaces;
@@ -21,9 +22,31 @@ namespace PulsePI.Service
 
         public async Task<LoginMessage> Login(LoginData ld)
         {
-            return await _accountDao.Login(ld);
+            LoginMessage msg;
+            try
+            {
+                msg = await _accountDao.Login(ld.username, ld.password);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException(e.Message, e);
+            }
+
+            return msg;
         }
 
-
+        public async Task<CreateAccountMessage> CreateAccount(CreateAccountData cad)
+        {
+            CreateAccountMessage cam = null;
+            try
+            {
+                cam = await _accountDao.CreateAccount(cad.username, cad.password, cad.firstName, cad.lastName);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException(e.Message, e);
+            }
+            return cam;
+        }
     }
 }
