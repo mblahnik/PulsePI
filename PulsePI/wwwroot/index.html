@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,6 +10,30 @@
     <link rel="stylesheet" href="assets/css/styles.min.css">
 </head>
 
+<style>
+    .logo
+    {
+        position:relative;
+        top: 50px;
+        height : 250px;
+        width : 250px;
+    }
+    .rotate 
+    {
+        animation: rotation 2s infinite linear;
+    }
+    @keyframes rotation {
+    from 
+    {
+        transform: rotate(0deg);
+    }
+    to 
+    {
+        transform: rotate(359deg);
+    }
+}
+</style>
+
 <body>
     <div class="row" style="margin-top:10px;">
         <div class="col-12 col-sm-4 col-md-4 col-lg-4"></div>
@@ -17,6 +41,9 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <h1 class="text-center">Page Currently Under Construction</h1>
             <p class="text-center">Please try again later!</p>
+            <div class="text-center">
+            <img class="logo rotate" src="./assets/non transparent logo.png"/>
+            </div>
         </div>
     </div>
     <div id="wrapper">
