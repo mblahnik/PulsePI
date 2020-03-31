@@ -1,0 +1,15 @@
+﻿using System;
+using Moq;
+using Xunit;
+
+namespace PulsePI.Controllers
+{
+    public class AccountController_Test
+    {
+        public AccountController_Test()
+        {
+
+
+        }
+    }
+}
