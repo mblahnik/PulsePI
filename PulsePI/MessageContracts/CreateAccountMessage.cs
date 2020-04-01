@@ -1,5 +1,4 @@
-﻿using System;
-namespace PulsePI.MessageContracts
+﻿namespace PulsePI.MessageContracts
 {
     public class CreateAccountMessage
     {

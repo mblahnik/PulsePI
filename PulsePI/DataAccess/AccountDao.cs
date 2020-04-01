@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PulsePI.DataAccess.DaoInterfaces;
-using PulsePI.DataContracts;
 using PulsePI.Exceptions;
 using PulsePI.MessageContracts;
 using PulsePI.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,7 +34,7 @@ namespace PulsePI.DataAccess
   
         }
 
-        public async Task<CreateAccountMessage> CreateAccount(string u, string p, string f, string l)
+        public async Task<CreateAccountMessage> CreateAccount(string u, string p, string f, string l, string e)
         {
             using(var context = new PulsePiDBContext())
             {
@@ -50,16 +47,17 @@ namespace PulsePI.DataAccess
                     username = u,
                     password = p,
                     firstName = f,
-                    lastName = l
+                    lastName = l,
+                    email = e
                 };
 
                 try
                 {
                     context.accounts.Attach(acc);
                 }
-                catch(Exception e)
+                catch(Exception ex)
                 {
-                    throw new CustomException("Error creating account", e);
+                    throw new CustomException("Error creating account", ex);
                 }
                 return new CreateAccountMessage();
                 
