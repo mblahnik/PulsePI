@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataContracts;
 using PulsePI.MessageContracts;
-using PulsePI.Models;
 using PulsePI.Service.ServiceInterfaces;
 
 namespace PulsePI.Controllers
