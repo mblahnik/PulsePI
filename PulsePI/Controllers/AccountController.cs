@@ -46,8 +46,7 @@ namespace PulsePI.Controllers
             {
                 return BadRequest(cam);
             }
-            return Ok();
-
+            return NoContent();
         }
     }
 }
