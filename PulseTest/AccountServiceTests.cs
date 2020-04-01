@@ -20,32 +20,19 @@ namespace PulseTest
 
         public void AccountService_Login_Test()
         {
-            //arrange
             var mockLogin = new Mock<LoginData>();
 
-            Action act = () =>
-            {
-                var test = new AccountService(mockLogin.Object);
-                Assert.areEqual("4". test.)
-           }
-          
+            mockLogin.Setup(m => m.username).Returns("boyland");
+            mockLogin.Setup(m => m.password).Returns("boyland");
 
-            //act
-
-
-            //assert
         }
 
-        /*
         public void AccountService_CreateAccount_Test()
         {
-            //arrange
+            var mockCreateAccount = new Mock<CreateAccountData>();
 
-            //act
-
-            //assert
         }
-        */
+        
     }
 
 }
