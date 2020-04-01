@@ -22,8 +22,16 @@ namespace PulseTest
         {
             var mockLogin = new Mock<LoginData>();
 
-            mockLogin.Setup(m => m.username).Returns("boyland");
-            mockLogin.Setup(m => m.password).Returns("boyland");
+           // mockLogin.Setup(m => m.username(" ")).Throws<InvalidOperationException>();
+            //mockLogin.Setup(m => m.password(" ")).Throws<InvalidOperationException>();
+
+            mockLogin.SetupGet(m => m.username).Returns("boyland");
+            mockLogin.SetupGet(m => m.password).Returns("boyland");
+
+            mockLogin.Verify((m => m.username), Times.Once());
+            mockLogin.Verify((m => m.password), Times.Once());
+
+
 
         }
 
