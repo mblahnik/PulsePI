@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataContracts;
 using PulsePI.Exceptions;
 using PulsePI.MessageContracts;
-using PulsePI.Models;
 using PulsePI.Service.ServiceInterfaces;
 
 namespace PulsePI.Service
@@ -40,7 +37,7 @@ namespace PulsePI.Service
             CreateAccountMessage cam = null;
             try
             {
-                cam = await _accountDao.CreateAccount(cad.username, cad.password, cad.firstName, cad.lastName);
+                cam = await _accountDao.CreateAccount(cad.username, cad.password, cad.firstName, cad.lastName, cad.email);
             }
             catch(Exception e)
             {
