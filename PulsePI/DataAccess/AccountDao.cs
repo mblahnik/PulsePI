@@ -53,7 +53,8 @@ namespace PulsePI.DataAccess
 
                 try
                 {
-                    context.accounts.Attach(acc);
+                    context.accounts.Add(acc);
+                    context.SaveChanges();
                 }
                 catch(Exception ex)
                 {
