@@ -47,8 +47,7 @@ namespace PulsePI.DataAccess
             string defaultUrl = _config["DefaultAvatarUrl"] ?? throw new Exception("No Default avatar url in appsettings");
             using(var context = new PulsePiDBContext())
             {
-                Account acc = await context.accounts.Where(x => (x.username == u) &&
-                   (x.password == p)).FirstOrDefaultAsync();
+                Account acc = await context.accounts.Where(x => x.username == u).FirstOrDefaultAsync();
                 if (acc != null) throw new CustomException("Account already exists");
 
                 acc = new Account()
