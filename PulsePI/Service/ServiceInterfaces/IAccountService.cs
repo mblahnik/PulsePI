@@ -9,6 +9,6 @@ namespace PulsePI.Service.ServiceInterfaces
     public interface IAccountService
     {
         public Task<LoginMessage> Login(LoginData ld);
-        public Task<CreateAccountMessage> CreateAccount(CreateAccountData d);
+        public Task CreateAccount(CreateAccountData d);
     }
 }

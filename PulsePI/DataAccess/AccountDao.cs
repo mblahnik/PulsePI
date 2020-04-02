@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.Exceptions;
@@ -42,7 +43,7 @@ namespace PulsePI.DataAccess
   
         }
 
-        public async Task<CreateAccountMessage> CreateAccount(string u, string p, string f, string l, string e)
+        public async Task CreateAccount(string u, string p, string f, string l, string e)
         {
             string defaultUrl = _config["DefaultAvatarUrl"] ?? throw new Exception("No Default avatar url in appsettings");
             using(var context = new PulsePiDBContext())
@@ -65,12 +66,10 @@ namespace PulsePI.DataAccess
                     context.accounts.Add(acc);
                     context.SaveChanges();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw new CustomException("Error creating account", ex);
-                }
-                return new CreateAccountMessage();
-                
+                }    
             }
         }
 

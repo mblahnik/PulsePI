@@ -32,18 +32,16 @@ namespace PulsePI.Service
             return msg;
         }
 
-        public async Task<CreateAccountMessage> CreateAccount(CreateAccountData cad)
+        public async Task CreateAccount(CreateAccountData cad)
         {
-            CreateAccountMessage cam = null;
             try
             {
-                cam = await _accountDao.CreateAccount(cad.username, cad.password, cad.firstName, cad.lastName, cad.email);
+                await _accountDao.CreateAccount(cad.username, cad.password, cad.firstName, cad.lastName, cad.email);
             }
             catch(Exception e)
             {
                 throw new CustomException(e.Message, e);
             }
-            return cam;
         }
     }
 }
