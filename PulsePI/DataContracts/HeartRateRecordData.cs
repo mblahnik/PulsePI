@@ -4,7 +4,7 @@ namespace PulsePI.DataContracts
 {
     public class HeartRateRecordData
     {
-        public int accountId { get; set; }
+        public string username { get; set; }
         public string type { get; set; }
         public DateTime startTime { get; set; }
         public DateTime endTime { get; set; }

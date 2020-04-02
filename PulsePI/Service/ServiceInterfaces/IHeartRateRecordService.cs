@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using PulsePI.DataContracts;
-using PulsePI.Models;
 
-namespace PulsePI.DataAccess.DaoInterfaces
+namespace PulsePI.Service.ServiceInterfaces
 {
-    public interface IHeartRateRecordDao
+    public interface IHeartRateRecordService
     {
         Task RecordHeartRate(HeartRateRecordData hr);
     }
