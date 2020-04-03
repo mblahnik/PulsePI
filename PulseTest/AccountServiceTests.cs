@@ -11,6 +11,8 @@ using PulsePI.Service;
 using PulsePI.Controllers;
 using PulsePI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
+
 namespace PulseTest
 {
     [TestClass]
@@ -19,18 +21,20 @@ namespace PulseTest
         [TestMethod]
         public void AccountService_Login_Test()
         {
-          
             var mockLogin = new Mock<LoginData>();
+            mockLogin.Should().NotBeNull();
 
-            // mockLogin.Setup(m => m.username(" ")).Throws<InvalidOperationException>();
-            //mockLogin.Setup(m => m.password(" ")).Throws<InvalidOperationException>();
-            mockLogin.SetupGet(m => m.username).Returns("boyland");
-            mockLogin.SetupGet(m => m.password).Returns("boyland");
+            mockLogin.SetupGet(m => m.username).Returns(" ")
+            .Callback(() => Console.WriteLine("ERROR: Type your ID"));
+
+            mockLogin.SetupGet(m => m.password).Returns(" ")
+                .Callback(() => Console.WriteLine("ERROR: Type your Password"));
 
 
-            var obj = mockLogin.Object;
-   
-           
+
+
+
+
 
 
         }
@@ -40,7 +44,7 @@ namespace PulseTest
             var mockCreateAccount = new Mock<CreateAccountData>();
 
         }
-        
+
     }
 
 }
