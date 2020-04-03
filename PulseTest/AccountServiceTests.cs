@@ -32,7 +32,8 @@ namespace PulseTest
             mockLogin.SetupGet(m => m.password).Returns(" ")
                 .Callback(() => Console.WriteLine("ERROR: Type your Password"));
 
-            //var obj = mockLogin.Object;
+           // var obj = mockLogin.Object;
+      
        
 
 
