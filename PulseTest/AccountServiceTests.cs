@@ -10,37 +10,59 @@ using PulsePI.DataContracts;
 using PulsePI.Service;
 using PulsePI.Controllers;
 using PulsePI.Models;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace PulseTest
 {
-    
-    public class AccountServiceTests
-    {
 
+[TestClass]
+    public class AccountServiceTests
+    { 
+
+           [TestMethod]
         public void AccountService_Login_Test()
         {
             var mockLogin = new Mock<LoginData>();
+            mockLogin.Should().NotBeNull();
 
-            // mockLogin.Setup(m => m.username(" ")).Throws<InvalidOperationException>();
-            //mockLogin.Setup(m => m.password(" ")).Throws<InvalidOperationException>();
-            mockLogin.SetupGet(m => m.username).Returns("boyland");
-            mockLogin.SetupGet(m => m.password).Returns("boyland");
+            mockLogin.SetupGet(m => m.username).Returns(" ")
+            .Callback(() => Console.WriteLine("ERROR: Type your ID"));
 
+            mockLogin.SetupGet(m => m.password).Returns(" ")
+                .Callback(() => Console.WriteLine("ERROR: Type your Password"));
 
-            var obj = mockLogin.Object;
-   
-           
+           // var obj = mockLogin.Object;
+      
+       
 
 
         }
-
+        [TestMethod]
         public void AccountService_CreateAccount_Test()
         {
             var mockCreateAccount = new Mock<CreateAccountData>();
+            mockCreateAccount.Should().NotBeNull();
+
+            mockCreateAccount.SetupGet(m => m.username).Returns(" ")
+            .Callback(() => Console.WriteLine("ERROR: Type your ID"));
+
+            mockCreateAccount.SetupGet(m => m.password).Returns(" ")
+                .Callback(() => Console.WriteLine("ERROR: Type your Password"));
+
+            mockCreateAccount.SetupGet(m => m.firstName).Returns(" ")
+             .Callback(() => Console.WriteLine("ERROR: Type your First Name"));
+
+            mockCreateAccount.SetupGet(m => m.lastName).Returns(" ")
+             .Callback(() => Console.WriteLine("ERROR: Type your Last Name"));
+
+            mockCreateAccount.SetupGet(m => m.email).Returns(" ")
+             .Callback(() => Console.WriteLine("ERROR: Type your email"));
+
+            //var obj = mockLogin.Object;
 
         }
-        
+
     }
 
 }
