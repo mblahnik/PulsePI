@@ -10,16 +10,16 @@ using PulsePI.DataContracts;
 using PulsePI.Service;
 using PulsePI.Controllers;
 using PulsePI.Models;
-
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PulseTest
 {
-    
+    [TestClass]
     public class AccountServiceTests
     {
-
+        [TestMethod]
         public void AccountService_Login_Test()
         {
+          
             var mockLogin = new Mock<LoginData>();
 
             // mockLogin.Setup(m => m.username(" ")).Throws<InvalidOperationException>();
