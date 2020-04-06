@@ -25,6 +25,7 @@ namespace PulseTest.ServiceTests
                 bpmLow = 50.0,
                 bpmHigh = 150.0,
                 bpmAvg = 100.0
+
             };
 
             //act 
