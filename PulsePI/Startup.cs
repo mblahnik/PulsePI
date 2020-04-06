@@ -10,27 +10,32 @@ using PulsePI.Service.ServiceInterfaces;
 using PulsePI.Service;
 using System.IO;
 using PulsePI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PulsePI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public IConfiguration Configuration { get; }
         public IContainer ApplicationContainer { get; private set; }
 
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+            
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PulsePiDBContext>(
+                options => options.UseSqlServer(Configuration["ConnectionStrings:MyDbConnection"]));
+            services.AddDbContext<PulsePiDBContext>();
             services.AddControllers();
-            services.AddSingleton<IAccountService, AccountService>();
-            services.AddSingleton<IAccountDao,AccountDao>();
-            services.AddSingleton<IHeartRateRecordDao, HeartRateRecordDao>();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountDao,AccountDao>();
+            services.AddTransient<IHeartRateRecordService, HeartRateRecordService>();
+            services.AddTransient<IHeartRateRecordDao, HeartRateRecordDao>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +70,8 @@ namespace PulsePI
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }
