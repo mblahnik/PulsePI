@@ -17,10 +17,12 @@
 </PackageReference>
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.VisualStudio.UnitTesting" Version="11.0.50727.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PulsePI\PulsePI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceTests\" />
   </ItemGroup>
 </Project>
