@@ -10,11 +10,10 @@ using PulsePI.DataContracts;
 using PulsePI.Service;
 using PulsePI.Controllers;
 using PulsePI.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
 
 
-namespace PulseTest
+namespace PulseTest.ServiceTests
 {
     public class HeartRateRecordServiceTests
     {
