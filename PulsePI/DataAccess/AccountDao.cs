@@ -1,24 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.Exceptions;
 using PulsePI.MessageContracts;
 using PulsePI.Models;
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace PulsePI.DataAccess
 {
     public class AccountDao : IAccountDao
     {
-        private readonly IConfiguration _config;
         private PulsePiDBContext _context;
 
-        public AccountDao(IConfiguration config, PulsePiDBContext context)
+        public AccountDao(PulsePiDBContext context)
         {
-            _config = config;
             _context = context;
         }
 
@@ -41,26 +37,14 @@ namespace PulsePI.DataAccess
                 acc.middleName, acc.birthDate, acc.avatarUrl, acc.email);
         }
 
-        public async Task CreateAccount(string u, string p, string f, string l, string e)
-        {
-            string defaultUrl = _config["DefaultAvatarUrl"] ?? throw new Exception("No Default avatar url in appsettings");
-
-            Account acc = await _context.accounts.Where(x => x.username == u).FirstOrDefaultAsync();
+        public async Task CreateAccount(Account a)
+        {      
+            Account acc = await _context.accounts.Where(x => x.username == a.username).FirstOrDefaultAsync();
             if (acc != null) throw new CustomException("Account already exists");
-
-            acc = new Account()
-            {
-                username = u,
-                password = p,
-                firstName = f,
-                lastName = l,
-                email = e,
-                avatarUrl = defaultUrl
-            };
 
             try
             {
-                _context.accounts.Add(acc);
+                _context.accounts.Add(a);
                 _context.SaveChanges();
             }
             catch (Exception ex)
