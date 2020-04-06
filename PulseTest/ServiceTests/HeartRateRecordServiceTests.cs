@@ -1,24 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using PulsePI.MessageContracts;
 using Moq;
-using Moq.Protected;
-using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataContracts;
-using PulsePI.Service;
-using PulsePI.Controllers;
-using PulsePI.Models;
 using FluentAssertions;
-
+using PulsePI.Service.ServiceInterfaces;
+using Xunit;
 
 namespace PulseTest.ServiceTests
 {
     public class HeartRateRecordServiceTests
     {
-        public HeartRateRecordServiceTests()
+        private Mock<IHeartRateRecordService> mockHeartRateRecordService = new Mock<IHeartRateRecordService>();
+
+        [Fact]
+        public void HeartRateRecordService_RecordHeartRate_Test()
         {
+            //arrange 
+            var heartRateRecordData = new HeartRateRecordData()
+            {
+
+                username = "Username",
+                type = "Exercise",
+                startTime = 2147483647,
+                endTime = 22 / 12 / 2222,
+                bpmLow = 50.0,
+                bpmHigh = 150.0,
+                bpmAvg = 100.0
+            };
+
+            //act 
+            var response = mockHeartRateRecordService.Object.RecordHeartRate(heartRateRecordData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockHeartRateRecordService.Verify();
         }
+
     }
+
 }
