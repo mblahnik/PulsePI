@@ -21,7 +21,7 @@ namespace PulseTest.ServiceTests
                 username = "Username",
                 type = "Exercise",
                 startTime = 2147483647,
-                endTime = 22 / 12 / 2222,
+                endTime = 22/ 12 / 2222,
                 bpmLow = 50.0,
                 bpmHigh = 150.0,
                 bpmAvg = 100.0
