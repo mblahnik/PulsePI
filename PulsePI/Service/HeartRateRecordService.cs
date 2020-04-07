@@ -32,7 +32,7 @@ namespace PulsePI.Service
 
             try
             {
-                await _heartRateRecordDao.RecordHeartRate(heartRateRecord);
+                await _heartRateRecordDao.RecordHeartRate(heartRateRecord, hr.username);
             }
             catch(Exception e)
             {

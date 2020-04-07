@@ -21,12 +21,12 @@ namespace PulsePI.DataAccess
             _context = context;
         }
 
-        public async Task RecordHeartRate(HeartRateRecord hrr)
+        public async Task RecordHeartRate(HeartRateRecord hrr, string username)
         {
             try
             {
                 //Find the account that this HR data is for 
-                Account acc = await _context.accounts.Where(x => x.username == hr.username).FirstOrDefaultAsync();
+                Account acc = await _context.accounts.Where(x => x.username == username).FirstOrDefaultAsync();
                 if (acc == null) throw new InvalidOperationException("There is no account matching the username");
 
                 hrr.accountId = acc.Id;
