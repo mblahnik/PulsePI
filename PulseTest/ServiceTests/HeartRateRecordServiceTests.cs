@@ -20,8 +20,8 @@ namespace PulseTest.ServiceTests
 
                 username = "Username",
                 type = "Exercise",
-                startTime = DateTime.Now,
-                endTime = DateTime.MaxValue,
+                startTime = 983409823704981,
+                endTime = 8304983209483200,
                 bpmLow = 50.0,
                 bpmHigh = 150.0,
                 bpmAvg = 100.0
