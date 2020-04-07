@@ -21,7 +21,7 @@ namespace PulsePI.DataAccess
             _context = context;
         }
 
-        public async Task RecordHeartRate(HeartRateRecordData hr)
+        public async Task RecordHeartRate(HeartRateRecord hrr)
         {
             try
             {
@@ -29,21 +29,11 @@ namespace PulsePI.DataAccess
                 Account acc = await _context.accounts.Where(x => x.username == hr.username).FirstOrDefaultAsync();
                 if (acc == null) throw new InvalidOperationException("There is no account matching the username");
 
-                //Create a record 
-                var heartRateRecord = new HeartRateRecord()
-                {
-                    accountId = acc.Id,
-                    account = acc,
-                    type = hr.type,
-                    startTime = hr.startTime,
-                    endTime = hr.endTime,
-                    bpmLow = hr.bpmLow,
-                    bpmHigh = hr.bpmHigh,
-                    bpmAvg = hr.bpmAvg
-                };
+                hrr.accountId = acc.Id;
+                hrr.account = acc;
 
                 //Add the record to the DB and save 
-                _context.heartRateRecords.Add(heartRateRecord);
+                _context.heartRateRecords.Add(hrr);
                 _context.SaveChanges();
             }
             catch (Exception e)

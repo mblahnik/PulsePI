@@ -19,9 +19,20 @@ namespace PulsePI.Service
 
         public async Task RecordHeartRate(HeartRateRecordData hr)
         {
+            //Create a record 
+            var heartRateRecord = new HeartRateRecord()
+            {
+                type = hr.type,
+                startTime = hr.startTime,
+                endTime = hr.endTime,
+                bpmLow = hr.bpmLow,
+                bpmHigh = hr.bpmHigh,
+                bpmAvg = hr.bpmAvg
+            };
+
             try
             {
-                await _heartRateRecordDao.RecordHeartRate(hr);
+                await _heartRateRecordDao.RecordHeartRate(heartRateRecord);
             }
             catch(Exception e)
             {

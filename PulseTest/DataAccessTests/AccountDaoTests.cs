@@ -1,9 +1,6 @@
-﻿using System;
-using PulsePI.DataAccess;
+﻿using PulsePI.DataAccess;
 using PulsePI.Models;
-using Moq;
 using Xunit;
-using Microsoft.Extensions.Configuration;
 
 namespace PulseTest.DataAccessTests
 {

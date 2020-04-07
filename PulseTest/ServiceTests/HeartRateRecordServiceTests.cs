@@ -11,7 +11,6 @@ namespace PulseTest.ServiceTests
     {
         private Mock<IHeartRateRecordService> mockHeartRateRecordService = new Mock<IHeartRateRecordService>();
 
-
         [Fact]
         public void HeartRateRecordService_RecordHeartRate_Test()
         {
