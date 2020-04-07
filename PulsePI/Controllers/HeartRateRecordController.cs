@@ -18,7 +18,7 @@ namespace PulsePI.Controllers
         }
 
         [HttpPost("record")]
-        public async Task RecordHeartRate([FromBody] HeartRateRecordData hr)
+        public async Task<IActionResult> RecordHeartRate([FromBody] HeartRateRecordData hr)
         { 
             try
             {
@@ -28,6 +28,7 @@ namespace PulsePI.Controllers
             {
                 throw new CustomException("Error at record heart rate in controller" + e);
             }
+            return Ok("Good job");
         }
     }
 }
