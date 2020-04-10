@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataContracts;
 using PulsePI.Exceptions;
+using PulsePI.MessageContracts;
 using PulsePI.Models;
 using PulsePI.Service.ServiceInterfaces;
 
@@ -38,6 +40,20 @@ namespace PulsePI.Service
             {
                 throw new CustomException("Error at record heart rate service" + e);
             }
+        }
+
+        public async Task<List<GetAllHRDataResponse>> GetAllHeartRateData (GetAllHRData hr)
+        {
+            List<GetAllHRDataResponse> list = null;  
+            try
+            {
+                list = await _heartRateRecordDao.GetAllHeartRateData(hr);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Error at get all heart rate data in service " + e);
+            }
+            return list; 
         }
 
         private DateTime ConvertToDateTime(long unixDate)
