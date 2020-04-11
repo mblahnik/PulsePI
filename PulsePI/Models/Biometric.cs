@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PulsePI.Models
 {
-    public class BiometridData
+    public class Biometric
     {
         public int Id { get; set; }
         public Account account { get; set; }
