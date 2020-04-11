@@ -36,6 +36,8 @@ namespace PulsePI
             services.AddTransient<IAccountDao,AccountDao>();
             services.AddTransient<IHeartRateRecordService, HeartRateRecordService>();
             services.AddTransient<IHeartRateRecordDao, HeartRateRecordDao>();
+              services.AddTransient<IHeartRateRecordDao, HeartRateRecordDao>();
+              //services.AddTransient<IBiometricDataDao, BiometricDataDao>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
