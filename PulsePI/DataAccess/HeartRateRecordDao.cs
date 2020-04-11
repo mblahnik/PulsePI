@@ -7,6 +7,8 @@ using PulsePI.DataContracts;
 using PulsePI.Exceptions;
 using PulsePI.Models;
 using Microsoft.EntityFrameworkCore;
+using PulsePI.MessageContracts;
+using System.Collections.Generic;
 
 namespace PulsePI.DataAccess
 {
@@ -40,6 +42,32 @@ namespace PulsePI.DataAccess
             {
                 throw new CustomException("Database error while trying to create heart rate record " + e);
             }    
+        }
+
+        public async Task<List<GetAllHRDataResponse>> GetAllHeartRateData(GetAllHRData hrd)
+        {
+            List<GetAllHRDataResponse> something = null;
+            try
+            {
+                Account acc = await _context.accounts.Where(x => x.username == hrd.username).FirstOrDefaultAsync();
+                if (acc == null) throw new InvalidOperationException("There is no account matching the username");
+
+                something = await _context.heartRateRecords.Where(x => x.accountId == acc.Id)
+                    .Select(x => new GetAllHRDataResponse()
+                        {
+                            type = x.type,
+                            startTime = x.startTime.ToString(),
+                            endTime = x.endTime.ToString(),
+                            bpmLow = x.bpmLow,
+                            bpmHigh = x.bpmHigh,
+                            bpmAvg = x.bpmAvg
+                        }).ToListAsync(); 
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Database error while trying to get all hr data " + e);
+            }
+            return something; 
         }
     }
 }
