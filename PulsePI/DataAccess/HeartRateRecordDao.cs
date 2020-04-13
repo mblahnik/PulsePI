@@ -44,16 +44,16 @@ namespace PulsePI.DataAccess
             }    
         }
 
-        public async Task<List<GetAllHRDataResponse>> GetAllHeartRateData(GetAllHRData hrd)
+        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData(GetAllHRData hrd)
         {
-            List<GetAllHRDataResponse> something = null;
+            List<GetAllHRDataMessage> something = null;
             try
             {
                 Account acc = await _context.accounts.Where(x => x.username == hrd.username).FirstOrDefaultAsync();
                 if (acc == null) throw new InvalidOperationException("There is no account matching the username");
 
                 something = await _context.heartRateRecords.Where(x => x.accountId == acc.Id)
-                    .Select(x => new GetAllHRDataResponse()
+                    .Select(x => new GetAllHRDataMessage()
                         {
                             type = x.type,
                             startTime = x.startTime.ToString(),

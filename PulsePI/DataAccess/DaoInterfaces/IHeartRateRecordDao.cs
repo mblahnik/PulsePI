@@ -9,6 +9,6 @@ namespace PulsePI.DataAccess.DaoInterfaces
     public interface IHeartRateRecordDao
     {
         Task RecordHeartRate(HeartRateRecord hr, string u);
-        Task<List<GetAllHRDataResponse>> GetAllHeartRateData(GetAllHRData hrd);
+        Task<List<GetAllHRDataMessage>> GetAllHeartRateData(GetAllHRData hrd);
     }
 }

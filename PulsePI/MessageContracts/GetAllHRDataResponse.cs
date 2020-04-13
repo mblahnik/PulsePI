@@ -1,7 +1,7 @@
 ﻿
 namespace PulsePI.MessageContracts
 {
-    public class GetAllHRDataResponse
+    public class GetAllHRDataMessage
     {
         public string type { get; set; }
         public string startTime { get; set; }

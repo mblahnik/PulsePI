@@ -42,9 +42,9 @@ namespace PulsePI.Service
             }
         }
 
-        public async Task<List<GetAllHRDataResponse>> GetAllHeartRateData (GetAllHRData hr)
+        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData (GetAllHRData hr)
         {
-            List<GetAllHRDataResponse> list = null;  
+            List<GetAllHRDataMessage> list = null;  
             try
             {
                 list = await _heartRateRecordDao.GetAllHeartRateData(hr);
