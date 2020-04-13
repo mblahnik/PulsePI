@@ -36,7 +36,7 @@ namespace PulsePI.Controllers
         [HttpPost("getAllData")]
         public async Task<IActionResult> GetAllHeartRateData([FromBody] GetAllHRData hrd)
         {
-            List<GetAllHRDataResponse> list = null;
+            List<GetAllHRDataMessage> list = null;
             try
             {
                 list = await _heartRateRecordService.GetAllHeartRateData(hrd);
