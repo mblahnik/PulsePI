@@ -10,5 +10,6 @@ namespace PulsePI.Service.ServiceInterfaces
     {
         public Task<LoginMessage> Login(LoginData ld);
         public Task CreateAccount(CreateAccountData d);
+        public Task UpdateAccount(UpdateAccountData d);
     }
 }

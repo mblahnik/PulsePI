@@ -47,5 +47,19 @@ namespace PulsePI.Controllers
             }
             return NoContent();
         }
+
+        [HttpPost("updateAccount")]
+        public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountData data)
+        {
+            try
+            {
+                await _accountService.UpdateAccount(data);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
+            return Ok("Account updated");
+        }
     }
 }

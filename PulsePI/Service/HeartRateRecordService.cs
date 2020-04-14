@@ -70,7 +70,7 @@ namespace PulsePI.Service
             return list;
         }
 
-        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHisotry(GetHRData hr)
+        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(GetHRData hr)
         {
             List<GetExerciseHeartRateMsg> list = null;
             try
