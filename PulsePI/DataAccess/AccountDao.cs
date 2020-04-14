@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PulsePI.DataAccess.DaoInterfaces;
+using PulsePI.DataContracts;
 using PulsePI.Exceptions;
 using PulsePI.MessageContracts;
 using PulsePI.Models;
@@ -52,6 +53,26 @@ namespace PulsePI.DataAccess
                 throw new CustomException("Error creating account", ex);
             }
         }
+
+        public async Task UpdateAccount(UpdateAccountData data)
+        {
+            Account acc = await _context.accounts.Where(x => x.username == data.username).FirstOrDefaultAsync();
+            if (acc != null) throw new CustomException("Account already exists");
+
+            try
+            {
+                acc.username = data.newUsername;
+                acc.firstName = data.firstName;
+                acc.lastName = data.lastName;
+                acc.email = data.email;
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw new CustomException("Error updating account", ex);
+            }
+            
+        } 
     }
 }
 

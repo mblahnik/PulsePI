@@ -42,7 +42,7 @@ namespace PulsePI.Service
             }
         }
 
-        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData (GetAllHRData hr)
+        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData (GetHRData hr)
         {
             List<GetAllHRDataMessage> list = null;  
             try
@@ -54,6 +54,34 @@ namespace PulsePI.Service
                 throw new CustomException("Error at get all heart rate data in service " + e);
             }
             return list; 
+        }
+
+        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(GetHRData hr)
+        {
+            List<GetRestingHeartRateMsg> list = null;
+            try
+            {
+                list = await _heartRateRecordDao.GetRestingHeartRateHistory(hr);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error at get all resting heart rate data in service " + e);
+            }
+            return list;
+        }
+
+        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(GetHRData hr)
+        {
+            List<GetExerciseHeartRateMsg> list = null;
+            try
+            {
+                list = await _heartRateRecordDao.GetExerciseHeartRateHistory(hr);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error at get all resting heart rate data in service " + e);
+            }
+            return list;
         }
 
         private DateTime ConvertToDateTime(long unixDate)

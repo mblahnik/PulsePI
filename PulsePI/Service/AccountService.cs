@@ -58,5 +58,17 @@ namespace PulsePI.Service
                 throw new CustomException(e.Message, e);
             }
         }
+
+        public async Task UpdateAccount(UpdateAccountData data)
+        {
+            try
+            {
+                await _accountDao.UpdateAccount(data);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Error at update account in service", e);
+            }
+        }
     }
 }
