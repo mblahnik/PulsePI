@@ -1,7 +1,7 @@
 ﻿
 namespace PulsePI.DataContracts
 {
-    public class GetAllHRData
+    public class GetHRData
     {
         public string username { get; set; }
     }

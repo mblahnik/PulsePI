@@ -44,7 +44,7 @@ namespace PulsePI.DataAccess
             }    
         }
 
-        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData(GetAllHRData hrd)
+        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData(GetHRData hrd)
         {
             List<GetAllHRDataMessage> something = null;
             try
@@ -68,6 +68,58 @@ namespace PulsePI.DataAccess
                 throw new CustomException("Database error while trying to get all hr data " + e);
             }
             return something; 
+        }
+
+        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(GetHRData hr)
+        {
+            List<GetRestingHeartRateMsg> something = null;
+            try
+            {
+                Account acc = await _context.accounts.Where(x => x.username == hr.username).FirstOrDefaultAsync();
+                if (acc == null) throw new InvalidOperationException("There is no account matching the username");
+
+                something = await _context.heartRateRecords.Where(x => x.accountId == acc.Id && x.type == "Sleeping")
+                    .Select(x => new GetRestingHeartRateMsg()
+                    {
+                        type = x.type,
+                        startTime = x.startTime.ToString(),
+                        endTime = x.endTime.ToString(),
+                        bpmLow = x.bpmLow,
+                        bpmHigh = x.bpmHigh,
+                        bpmAvg = x.bpmAvg
+                    }).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Database error while trying to get resting hr data " + e);
+            }
+            return something;
+        }
+
+        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(GetHRData hr)
+        {
+            List<GetExerciseHeartRateMsg> something = null;
+            try
+            {
+                Account acc = await _context.accounts.Where(x => x.username == hr.username).FirstOrDefaultAsync();
+                if (acc == null) throw new InvalidOperationException("There is no account matching the username");
+
+                something = await _context.heartRateRecords.Where(x => x.accountId == acc.Id && x.type != "Sleeping")
+                    .Select(x => new GetExerciseHeartRateMsg()
+                    {
+                        type = x.type,
+                        startTime = x.startTime.ToString(),
+                        endTime = x.endTime.ToString(),
+                        bpmLow = x.bpmLow,
+                        bpmHigh = x.bpmHigh,
+                        bpmAvg = x.bpmAvg
+                    }).ToListAsync();
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Database error while trying to get exercise hr data " + e);
+            }
+            return something;
         }
     }
 }
