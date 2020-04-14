@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataContracts;
-using PulsePI.MessageContracts;
+using PulsePI.Exceptions;
 using PulsePI.Service.ServiceInterfaces;
+using PulsePI.MessageContracts;
+using System.Collections.Generic;
 
 namespace PulsePI.Controllers
 {
@@ -12,11 +14,23 @@ namespace PulsePI.Controllers
     {
          IBiometricService _BiometricService;
 
-        public BiometricController(IBiometricService bio)
+        public BiometricDataController(IBiometricService bio)
         {
-            _biometricService = bio;
+            _BiometricService = bio;
         }
+
         [HttpPost("createBiometric")]
-        
+        public async Task<IActionResult> createBiometric([FromBody] BiometricData bioData)
+        {
+            try
+            {
+                await _BiometricService.CreateBiometric(bioData);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return NoContent();
+        }
     }
 }
