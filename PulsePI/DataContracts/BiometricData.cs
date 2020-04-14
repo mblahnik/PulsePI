@@ -6,6 +6,6 @@ namespace PulsePI.DataContracts
         public double height { get; set; }
         public double weight { get; set; }
         public char sex { get; set; }
-        public string Date { get; set; }
+        public long Date { get; set; }
     }
 }

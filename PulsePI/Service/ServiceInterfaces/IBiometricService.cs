@@ -8,6 +8,6 @@ namespace PulsePI.Service.ServiceInterfaces
 {
     public interface IBiometricService
     {
-        Task CreateBiometricData(BiometricData b);
+        Task CreateBiometric(BiometricData b);
     }
 }
