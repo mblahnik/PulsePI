@@ -42,7 +42,7 @@ namespace PulsePI.Service
             }
         }
 
-        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData (GetHRData hr)
+        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData (UsernameData hr)
         {
             List<GetAllHRDataMessage> list = null;  
             try
@@ -56,7 +56,7 @@ namespace PulsePI.Service
             return list; 
         }
 
-        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(GetHRData hr)
+        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(UsernameData hr)
         {
             List<GetRestingHeartRateMsg> list = null;
             try
@@ -70,7 +70,7 @@ namespace PulsePI.Service
             return list;
         }
 
-        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(GetHRData hr)
+        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(UsernameData hr)
         {
             List<GetExerciseHeartRateMsg> list = null;
             try

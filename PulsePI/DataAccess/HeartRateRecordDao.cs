@@ -41,10 +41,10 @@ namespace PulsePI.DataAccess
             catch (Exception e)
             {
                 throw new CustomException("Database error while trying to create heart rate record " + e);
-            }    
+            }
         }
 
-        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData(GetHRData hrd)
+        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData(UsernameData hrd)
         {
             List<GetAllHRDataMessage> something = null;
             try
@@ -54,23 +54,23 @@ namespace PulsePI.DataAccess
 
                 something = await _context.heartRateRecords.Where(x => x.accountId == acc.Id)
                     .Select(x => new GetAllHRDataMessage()
-                        {
-                            type = x.type,
-                            startTime = x.startTime.ToString(),
-                            endTime = x.endTime.ToString(),
-                            bpmLow = x.bpmLow,
-                            bpmHigh = x.bpmHigh,
-                            bpmAvg = x.bpmAvg
-                        }).ToListAsync(); 
+                    {
+                        type = x.type,
+                        startTime = x.startTime.ToString(),
+                        endTime = x.endTime.ToString(),
+                        bpmLow = x.bpmLow,
+                        bpmHigh = x.bpmHigh,
+                        bpmAvg = x.bpmAvg
+                    }).ToListAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new CustomException("Database error while trying to get all hr data " + e);
             }
-            return something; 
+            return something;
         }
 
-        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(GetHRData hr)
+        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(UsernameData hr)
         {
             List<GetRestingHeartRateMsg> something = null;
             try
@@ -96,7 +96,7 @@ namespace PulsePI.DataAccess
             return something;
         }
 
-        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(GetHRData hr)
+        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(UsernameData hr)
         {
             List<GetExerciseHeartRateMsg> something = null;
             try
@@ -115,7 +115,7 @@ namespace PulsePI.DataAccess
                         bpmAvg = x.bpmAvg
                     }).ToListAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new CustomException("Database error while trying to get exercise hr data " + e);
             }
