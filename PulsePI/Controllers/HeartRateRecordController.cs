@@ -34,7 +34,7 @@ namespace PulsePI.Controllers
         }
 
         [HttpPost("getAllData")]
-        public async Task<IActionResult> GetAllHeartRateData([FromBody] GetHRData hrd)
+        public async Task<IActionResult> GetAllHeartRateData([FromBody] UsernameData hrd)
         {
             List<GetAllHRDataMessage> list = null;
             try
@@ -49,7 +49,7 @@ namespace PulsePI.Controllers
         }
 
         [HttpPost("restingHistory")]
-        public async Task<IActionResult> GetRestingHeartRateHistory([FromBody] GetHRData hrd)
+        public async Task<IActionResult> GetRestingHeartRateHistory([FromBody] UsernameData hrd)
         {
             List<GetRestingHeartRateMsg> list = null;
             try
@@ -64,7 +64,7 @@ namespace PulsePI.Controllers
         }
 
         [HttpPost("exerciseHistory")]
-        public async Task<IActionResult> GetExerciseHeartRateHistory([FromBody] GetHRData hr)
+        public async Task<IActionResult> GetExerciseHeartRateHistory([FromBody] UsernameData hr)
         {
             List<GetExerciseHeartRateMsg> list = null;
             try

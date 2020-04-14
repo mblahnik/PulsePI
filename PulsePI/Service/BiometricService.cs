@@ -13,10 +13,12 @@ namespace PulsePI.Service
     public class BiometricService : IBiometricService
     {
         IBiometricDataDao _bio;
+        IHeartRateRecordDao _heart;
 
-        public BiometricService(IBiometricDataDao b)
+        public BiometricService(IBiometricDataDao b, IHeartRateRecordDao h)
         {
             _bio = b;
+            _heart = h;
         }
         public async Task CreateBiometric(BiometricData cbd)
         {
@@ -37,6 +39,31 @@ namespace PulsePI.Service
             }
 
         }
+
+        public async Task<GetExerciseIntensityMsg> GetIntensities(UsernameData data)
+        {
+            List<GetAllHRDataMessage> records = null;
+            Biometric bio = null;
+
+            try
+            {
+                records = await _heart.GetAllHeartRateData(data);
+                bio = await _bio.GetMostRecentRecord(data);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Error getting HR data in service" + e);
+            }
+
+            return CalculateIntensities(records, bio); 
+        }
+
+        private GetExerciseIntensityMsg CalculateIntensities(List<GetAllHRDataMessage> list, Biometric bio)
+        {
+            //TODO 
+            return null; 
+        }
+
         private DateTime ConvertToDateTime(long unixDate)
         {
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
