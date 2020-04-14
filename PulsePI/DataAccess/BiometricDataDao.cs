@@ -20,9 +20,9 @@ namespace PulsePI.DataAccess
         {
             _context = context;
         }
-       
-    public async Task CreateBiometricData(Biometric b)
-          {      
+
+        public async Task CreateBiometricData(Biometric b)
+        {
             Biometric bio = await _context.biometrics.Where(x => x.Id == b.Id).FirstOrDefaultAsync();
             if (bio != null) throw new CustomException("Biometric already exists");
 
@@ -39,6 +39,6 @@ namespace PulsePI.DataAccess
 
     }
 
-        }
-    
+}
+
 

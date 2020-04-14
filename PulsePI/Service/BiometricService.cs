@@ -16,31 +16,31 @@ namespace PulsePI.Service
 
         public BiometricService(IBiometricDataDao b)
         {
-         _bio = b;
+            _bio = b;
         }
         public async Task CreateBiometric(BiometricData cbd)
         {
-        var biometric = new Biometric()
-        {
-            height = cbd.height,
+            var biometric = new Biometric()
+            {
+                height = cbd.height,
                 weight = cbd.weight,
                 Date = ConvertToDateTime(cbd.Date),
                 sex = cbd.sex,
-        };
-          try
+            };
+            try
             {
                 await _bio.CreateBiometricData(biometric);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new CustomException("Error at creating biometric service" + e);
             }
-    
-}
- private DateTime ConvertToDateTime(long unixDate)
+
+        }
+        private DateTime ConvertToDateTime(long unixDate)
         {
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return start.AddMilliseconds(unixDate).ToLocalTime();
         }
-}
+    }
 }
