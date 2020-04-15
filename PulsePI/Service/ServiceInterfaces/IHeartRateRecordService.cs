@@ -11,5 +11,6 @@ namespace PulsePI.Service.ServiceInterfaces
         Task<List<GetAllHRDataMessage>> GetAllHeartRateData(UsernameData hr);
         Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(UsernameData hr);
         Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(UsernameData hr);
+        Task<GetRestingRatesMsg> GetRestingRates(UsernameData d);
     }
 }
