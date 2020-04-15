@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataContracts;
-using PulsePI.Exceptions;
 using PulsePI.Service.ServiceInterfaces;
 using PulsePI.MessageContracts;
 using System.Collections.Generic;
@@ -26,9 +25,9 @@ namespace PulsePI.Controllers
             {
                 await _heartRateRecordService.RecordHeartRate(hr);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new CustomException("Error at record heart rate in controller" + e);
+                return BadRequest();
             }
             return Ok("Good job");
         }
@@ -41,9 +40,9 @@ namespace PulsePI.Controllers
             {
                 list = await _heartRateRecordService.GetAllHeartRateData(hrd);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new CustomException("Error at get all heart rate data in controller " + e);
+                return BadRequest();
             }
             return Ok(list);
         }
@@ -56,9 +55,9 @@ namespace PulsePI.Controllers
             {
                 list = await _heartRateRecordService.GetRestingHeartRateHistory(hrd);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new CustomException("Error at get all resting heart rate data in controller " + e);
+                return BadRequest();
             }
             return Ok(list);
         }
@@ -71,11 +70,26 @@ namespace PulsePI.Controllers
             {
                 list = await _heartRateRecordService.GetExerciseHeartRateHistory(hr);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new CustomException("Error at get all resting heart rate data in controller " + e);
+                return BadRequest();
             }
             return Ok(list);
+        }
+
+        [HttpPost("restingRates")]
+        public async Task<IActionResult> GetRestingRates([FromBody] UsernameData d)
+        {
+            GetRestingRatesMsg msg = null;
+            try
+            {
+                msg = await _heartRateRecordService.GetRestingRates(d);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(msg);
         }
     }
 }

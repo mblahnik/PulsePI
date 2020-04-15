@@ -84,6 +84,34 @@ namespace PulsePI.Service
             return list;
         }
 
+        public async Task<GetRestingRatesMsg> GetRestingRates(UsernameData d)
+        {
+            List<GetExerciseHeartRateMsg> list = null;
+            try
+            {
+                list = await _heartRateRecordDao.GetExerciseHeartRateHistory(d);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error at get all resting heart rate data in service " + e);
+            }
+            return FormRestingRatesMessage(list);
+        }
+
+        private GetRestingRatesMsg FormRestingRatesMessage(List<GetExerciseHeartRateMsg> list)
+        {
+            GetRestingRatesMsg message = new GetRestingRatesMsg();
+            message.Dates = new List<string>();
+            message.Rates = new List<double>();
+
+            foreach (GetExerciseHeartRateMsg msg in list)
+            {
+                message.Dates.Add(msg.startTime);
+                message.Rates.Add(msg.bpmAvg);
+            }
+            return message;
+        }
+
         private DateTime ConvertToDateTime(long unixDate)
         {
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
