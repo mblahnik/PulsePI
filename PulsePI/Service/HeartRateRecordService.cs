@@ -86,10 +86,10 @@ namespace PulsePI.Service
 
         public async Task<GetRestingRatesMsg> GetRestingRates(UsernameData d)
         {
-            List<GetExerciseHeartRateMsg> list = null;
+            List<GetRestingHeartRateMsg> list = null;
             try
             {
-                list = await _heartRateRecordDao.GetExerciseHeartRateHistory(d);
+                list = await _heartRateRecordDao.GetRestingHeartRateHistory(d);
             }
             catch (Exception e)
             {
@@ -98,13 +98,13 @@ namespace PulsePI.Service
             return FormRestingRatesMessage(list);
         }
 
-        private GetRestingRatesMsg FormRestingRatesMessage(List<GetExerciseHeartRateMsg> list)
+        private GetRestingRatesMsg FormRestingRatesMessage(List<GetRestingHeartRateMsg> list)
         {
             GetRestingRatesMsg message = new GetRestingRatesMsg();
             message.Dates = new List<string>();
             message.Rates = new List<double>();
 
-            foreach (GetExerciseHeartRateMsg msg in list)
+            foreach (GetRestingHeartRateMsg msg in list)
             {
                 message.Dates.Add(msg.startTime);
                 message.Rates.Add(msg.bpmAvg);
