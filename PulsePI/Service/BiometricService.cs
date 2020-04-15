@@ -88,7 +88,7 @@ namespace PulsePI.Service
         {
             List<PersonalIntensities> list = new List<PersonalIntensities>();
             int i = 10;
-            int target = 220 - age;
+            int target = 150 - age;
             while(i <= 100)
             {
                 var pi = new PersonalIntensities();
