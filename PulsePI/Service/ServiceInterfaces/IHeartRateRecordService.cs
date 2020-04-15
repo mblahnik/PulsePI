@@ -8,8 +8,9 @@ namespace PulsePI.Service.ServiceInterfaces
     public interface IHeartRateRecordService
     {
         Task RecordHeartRate(HeartRateRecordData hr);
-        Task<List<GetAllHRDataMessage>> GetAllHeartRateData(GetHRData hr);
-        Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(GetHRData hr);
-        Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(GetHRData hr);
+        Task<List<GetAllHRDataMessage>> GetAllHeartRateData(UsernameData hr);
+        Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(UsernameData hr);
+        Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(UsernameData hr);
+        Task<GetRestingRatesMsg> GetRestingRates(UsernameData d);
     }
 }

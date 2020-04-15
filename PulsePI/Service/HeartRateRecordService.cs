@@ -42,7 +42,7 @@ namespace PulsePI.Service
             }
         }
 
-        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData (GetHRData hr)
+        public async Task<List<GetAllHRDataMessage>> GetAllHeartRateData (UsernameData hr)
         {
             List<GetAllHRDataMessage> list = null;  
             try
@@ -56,7 +56,7 @@ namespace PulsePI.Service
             return list; 
         }
 
-        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(GetHRData hr)
+        public async Task<List<GetRestingHeartRateMsg>> GetRestingHeartRateHistory(UsernameData hr)
         {
             List<GetRestingHeartRateMsg> list = null;
             try
@@ -70,7 +70,7 @@ namespace PulsePI.Service
             return list;
         }
 
-        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(GetHRData hr)
+        public async Task<List<GetExerciseHeartRateMsg>> GetExerciseHeartRateHistory(UsernameData hr)
         {
             List<GetExerciseHeartRateMsg> list = null;
             try
@@ -82,6 +82,34 @@ namespace PulsePI.Service
                 throw new CustomException("Error at get all resting heart rate data in service " + e);
             }
             return list;
+        }
+
+        public async Task<GetRestingRatesMsg> GetRestingRates(UsernameData d)
+        {
+            List<GetExerciseHeartRateMsg> list = null;
+            try
+            {
+                list = await _heartRateRecordDao.GetExerciseHeartRateHistory(d);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error at get all resting heart rate data in service " + e);
+            }
+            return FormRestingRatesMessage(list);
+        }
+
+        private GetRestingRatesMsg FormRestingRatesMessage(List<GetExerciseHeartRateMsg> list)
+        {
+            GetRestingRatesMsg message = new GetRestingRatesMsg();
+            message.Dates = new List<string>();
+            message.Rates = new List<double>();
+
+            foreach (GetExerciseHeartRateMsg msg in list)
+            {
+                message.Dates.Add(msg.startTime);
+                message.Rates.Add(msg.bpmAvg);
+            }
+            return message;
         }
 
         private DateTime ConvertToDateTime(long unixDate)

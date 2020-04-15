@@ -2,14 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataContracts;
-using PulsePI.Exceptions;
-using PulsePI.Service.ServiceInterfaces;
 using PulsePI.MessageContracts;
-using System.Collections.Generic;
+using PulsePI.Service.ServiceInterfaces;
 
 namespace PulsePI.Controllers
 {
-       [Route("api/biometric")]
+    [Route("api/biometric")]
     public class BiometricDataController : ControllerBase
     {
          IBiometricService _BiometricService;
@@ -32,5 +30,21 @@ namespace PulsePI.Controllers
             }
             return NoContent();
         }
+
+        [HttpPost("getIntensities")]
+        public async Task<IActionResult> GetIntensities([FromBody] UsernameData data)
+        {
+            GetExerciseIntensityMsg intensity = null;
+            try
+            {
+                intensity = await _BiometricService.GetIntensities(data);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(intensity);
+        }
     }
+    
 }

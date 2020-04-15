@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataContracts;
 using PulsePI.Exceptions;
 using PulsePI.Models;
 using Microsoft.EntityFrameworkCore;
-using PulsePI.MessageContracts;
-using System.Collections.Generic;
 
 namespace PulsePI.DataAccess
 {
@@ -35,6 +32,23 @@ namespace PulsePI.DataAccess
             {
                 throw new CustomException("Error creating biometric", ex);
             }
+        }
+
+        public async Task<Biometric> GetMostRecentRecord(UsernameData data)
+        {
+            Account acc = await _context.accounts.Where(x => x.username == data.username).FirstOrDefaultAsync();
+            if (acc == null) throw new CustomException("Account doesn't exist");
+
+            Biometric b = null;
+            try
+            {
+                //get most recent biometric data record 
+            }
+            catch(Exception ex)
+            {
+                throw new CustomException("Error getting biometric record", ex);
+            }
+            return b;
         }
 
     }
