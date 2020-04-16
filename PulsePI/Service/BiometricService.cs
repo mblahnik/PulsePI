@@ -32,7 +32,7 @@ namespace PulsePI.Service
             };
             try
             {
-                await _bio.CreateBiometricData(biometric);
+                await _bio.CreateBiometricData(biometric, cbd.username);
             }
             catch (Exception e)
             {
