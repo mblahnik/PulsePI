@@ -17,20 +17,24 @@ namespace PulsePI.DataAccess
         {
             _context = context;
         }
-
-        public async Task CreateBiometricData(Biometric b)
+        
+        public async Task CreateBiometricData(Biometric b, string username)
         {
-            Biometric bio = await _context.biometrics.Where(x => x.Id == b.Id).FirstOrDefaultAsync();
-            if (bio != null) throw new CustomException("Biometric already exists");
-
             try
             {
+                Account acc = await _context.accounts.Where(x => x.username == username).FirstOrDefaultAsync();
+                if (acc == null) throw new InvalidOperationException("There is no account matching the username");
+
+                b.accountId = acc.Id;
+                b.account = acc;
+
+                //Add the record to the DB and save 
                 _context.biometrics.Add(b);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw new CustomException("Error creating biometric", ex);
+                throw new CustomException("Database error while trying to create biometric data " + e);
             }
         }
 

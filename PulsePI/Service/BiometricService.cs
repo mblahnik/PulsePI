@@ -28,10 +28,11 @@ namespace PulsePI.Service
                 weight = cbd.weight,
                 Date = ConvertToDateTime(cbd.Date),
                 sex = cbd.sex,
+                dob = ConvertToDateTime(cbd.dob),
             };
             try
             {
-                await _bio.CreateBiometricData(biometric);
+                await _bio.CreateBiometricData(biometric, cbd.username);
             }
             catch (Exception e)
             {
