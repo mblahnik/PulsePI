@@ -8,7 +8,7 @@ namespace PulsePI.Service.ServiceInterfaces
 {
     public interface IBiometricService
     {
-        Task CreateBiometric(BiometricData b, string u);
+        Task CreateBiometric(BiometricData b);
         Task<GetExerciseIntensityMsg> GetIntensities(UsernameData data);
     }
 }
