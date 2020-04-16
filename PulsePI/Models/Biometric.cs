@@ -15,6 +15,6 @@ namespace PulsePI.Models
         public double weight { get; set; }
         public char sex { get; set; }
         public DateTime Date { get; set; }
-        public DateTime dob { get; set; }
+      
     }
 }
