@@ -28,7 +28,7 @@ namespace PulsePI.Service
                 weight = cbd.weight,
                 Date = ConvertToDateTime(cbd.Date),
                 sex = cbd.sex,
-                //dob = ConvertToDateTime(cbd.dob),
+                dob = ConvertToDateTime(cbd.dob),
             };
             try
             {
