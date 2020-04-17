@@ -28,7 +28,7 @@ namespace PulsePI.Service
                 weight = cbd.weight,
                 Date = ConvertToDateTime(cbd.Date),
                 sex = cbd.sex,
-                dob = ConvertToDateTime(cbd.dob),
+                dob = Convert.ToDateTime(cbd.dob),
             };
             try
             {
@@ -124,6 +124,7 @@ namespace PulsePI.Service
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return start.AddMilliseconds(unixDate).ToLocalTime();
         }
+
 
         public class PersonalIntensities
         {
