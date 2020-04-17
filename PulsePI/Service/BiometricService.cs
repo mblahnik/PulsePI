@@ -24,10 +24,10 @@ namespace PulsePI.Service
         {
             var biometric = new Biometric()
             {
-                height = cbd.height,
-                weight = cbd.weight,
-                //Date = ConvertToDateTime(cbd.Date),
-                sex = cbd.sex,
+                height = double.Parse(cbd.height),
+                weight = double.Parse(cbd.weight),
+                Date = DateTime.Now,
+                sex = char.Parse(cbd.sex),
                 dob = DateTime.Parse(cbd.dob),
             };
             try
