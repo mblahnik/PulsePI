@@ -26,9 +26,9 @@ namespace PulsePI.Service
             {
                 height = cbd.height,
                 weight = cbd.weight,
-                Date = ConvertToDateTime(cbd.Date),
+                //Date = ConvertToDateTime(cbd.Date),
                 sex = cbd.sex,
-                dob = Convert.ToDateTime(cbd.dob),
+                dob = DateTime.Parse(cbd.dob),
             };
             try
             {
