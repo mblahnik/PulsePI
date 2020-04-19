@@ -8,7 +8,7 @@ using PulsePI.Service.ServiceInterfaces;
 namespace PulsePI.Controllers
 {
     [Route("api/biometric")]
-    public class BiometricDataController : ControllerBase
+    public class BiometricDataController : Controller
     {
          IBiometricService _BiometricService;
 
@@ -18,7 +18,7 @@ namespace PulsePI.Controllers
         }
 
         [HttpPost("createBiometric")]
-        public async Task<IActionResult> createBiometric([FromBody] BiometricData bioData)
+        public async Task<IActionResult> CreateBiometric([FromBody] BiometricData bioData)
         {
             try
             {
