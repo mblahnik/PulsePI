@@ -64,6 +64,7 @@ namespace PulsePI.DataAccess
                 acc.firstName = data.firstName ?? acc.firstName;
                 acc.lastName = data.lastName ?? acc.lastName;
                 acc.email = data.email ?? acc.email;
+                acc.middleName = data.middleName ?? acc.middleName;
                 _context.SaveChanges();
             }
             catch(Exception ex)

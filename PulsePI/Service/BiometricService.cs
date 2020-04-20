@@ -20,6 +20,7 @@ namespace PulsePI.Service
             _bio = b;
             _heart = h;
         }
+
         public async Task CreateBiometric(BiometricData cbd)
         {
             var biometric = new Biometric()
@@ -30,6 +31,7 @@ namespace PulsePI.Service
                 sex = char.Parse(cbd.sex),
                 dob = DateTime.Parse(cbd.dob),
             };
+
             try
             {
                 await _bio.CreateBiometricData(biometric, cbd.username);
