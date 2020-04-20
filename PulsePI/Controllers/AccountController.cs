@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PulsePI.DataContracts;
 using PulsePI.MessageContracts;
+using PulsePI.Models;
 using PulsePI.Service.ServiceInterfaces;
 
 namespace PulsePI.Controllers
 {
-
     //Reveives a post request containing username and password 
     [Route("api/account")]
     public class AccountController : Controller
@@ -51,15 +51,16 @@ namespace PulsePI.Controllers
         [HttpPost("updateAccount")]
         public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountData data)
         {
+            Account acc = null;
             try
             {
-                await _accountService.UpdateAccount(data);
+                acc = await _accountService.UpdateAccount(data);
             }
             catch(Exception)
             {
                 return BadRequest();
             }
-            return Ok("Account updated");
+            return Ok(acc);
         }
     }
 }

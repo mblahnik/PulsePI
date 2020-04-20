@@ -54,7 +54,7 @@ namespace PulsePI.DataAccess
             }
         }
 
-        public async Task UpdateAccount(UpdateAccountData data)
+        public async Task<Account> UpdateAccount(UpdateAccountData data)
         {
             Account acc = await _context.accounts.Where(x => x.username == data.username).FirstOrDefaultAsync();
             if (acc == null) throw new CustomException("Account does not exist");
@@ -65,12 +65,14 @@ namespace PulsePI.DataAccess
                 acc.lastName = data.lastName ?? acc.lastName;
                 acc.email = data.email ?? acc.email;
                 acc.middleName = data.middleName ?? acc.middleName;
+                acc.avatarUrl = data.avatarUrl ?? acc.avatarUrl;
                 _context.SaveChanges();
             }
             catch(Exception ex)
             {
                 throw new CustomException("Error updating account", ex);
             }
+            return acc;
             
         } 
     }
