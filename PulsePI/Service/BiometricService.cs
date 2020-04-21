@@ -59,7 +59,8 @@ namespace PulsePI.Service
                 throw new CustomException("Error getting HR data in service" + e);
             }
 
-            return CalculateIntensities(records, bio);
+            int age = CalculateAge(bio.dob);
+            return CalculateIntensities(records, age);
         }
 
         public async Task<GetBiometricDataMsg> GetBiometricData(UsernameData data)
@@ -82,17 +83,41 @@ namespace PulsePI.Service
 
         }
 
-        private GetExerciseIntensityMsg CalculateIntensities(List<GetExerciseHeartRateMsg> list, Biometric bio)
+        public async Task<GetTargetHrMsg> GetTargetHeartRate(UsernameData data)
+        {
+            GetTargetHrMsg msg = new GetTargetHrMsg();
+            Biometric bio = null;
+            try
+            {
+                bio = await _bio.GetMostRecentRecord(data);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error getting HR data in service" + e);
+            }
+
+            int age = CalculateAge(bio.dob);
+            msg.targetHR = 150 - age;
+            return msg;
+
+        }
+
+        private int CalculateAge(DateTime dob)
+        {
+            var today = DateTime.Today;
+            return today.Year - dob.Year;
+        }
+
+        private GetExerciseIntensityMsg CalculateIntensities(List<GetExerciseHeartRateMsg> list, int age)
         {
             string time;
-            //Needs to come from bio eventually 
-            int age = 28;
             double avgBmp;
             double intensity;
             GetExerciseIntensityMsg message = new GetExerciseIntensityMsg();
             message.Dates = new List<string>();
             message.Percentages = new List<double>();
             int i = 0;
+
 
             List<PersonalIntensities> personalIntensities = GetPersonalIntensities(age);
 

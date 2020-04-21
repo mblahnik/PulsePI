@@ -11,5 +11,6 @@ namespace PulsePI.Service.ServiceInterfaces
         Task CreateBiometric(BiometricData b);
         Task<GetExerciseIntensityMsg> GetIntensities(UsernameData data);
         Task<GetBiometricDataMsg> GetBiometricData(UsernameData data);
+        Task<GetTargetHrMsg> GetTargetHeartRate(UsernameData data);
     }
 }

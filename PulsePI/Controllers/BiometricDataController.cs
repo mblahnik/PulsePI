@@ -61,6 +61,21 @@ namespace PulsePI.Controllers
             }
             return Ok(bio);
         }
+
+        [HttpPost("getTargetHR")]
+        public async Task<IActionResult> GetTargetHeartRate([FromBody] UsernameData data)
+        {
+            GetTargetHrMsg msg = null;
+            try
+            {
+                msg = await _BiometricService.GetTargetHeartRate(data);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(msg);
+        }
     }
     
 }
