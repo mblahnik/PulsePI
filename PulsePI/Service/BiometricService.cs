@@ -83,9 +83,9 @@ namespace PulsePI.Service
 
         }
 
-        public async Task<GetTargetHrMsg> GetTargetHeartRate(UsernameData data)
+        public async Task<GetHRBoundsMsg> GetHRBounds(UsernameData data)
         {
-            GetTargetHrMsg msg = new GetTargetHrMsg();
+            GetHRBoundsMsg msg = new GetHRBoundsMsg();
             Biometric bio = null;
             try
             {
@@ -97,7 +97,11 @@ namespace PulsePI.Service
             }
 
             int age = CalculateAge(bio.dob);
-            msg.targetHR = 150 - age;
+            msg.maxHR = 220 - age;
+            msg.heartRateReserve = msg.maxHR - 70;
+            double seventy = msg.heartRateReserve * 0.7 + 70;
+            double eightFive = msg.heartRateReserve * 0.85 + 70;
+            msg.targetHR = (seventy + eightFive) / 2;
             return msg;
 
         }
