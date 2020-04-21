@@ -13,5 +13,6 @@ namespace PulsePI.DataAccess.DaoInterfaces
     {
         Task CreateBiometricData(Biometric b, string u);
         Task<Biometric> GetMostRecentRecord(UsernameData data);
+        Task<Biometric> GetBiometricData(UsernameData data);
     }
 }

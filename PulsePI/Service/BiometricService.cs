@@ -61,6 +61,26 @@ namespace PulsePI.Service
             return CalculateIntensities(records, bio);
         }
 
+        public async Task<GetBiometricDataMsg> GetBiometricData(UsernameData data)
+        {
+            GetBiometricDataMsg msg = null;
+            Biometric b = null;
+            try
+            {
+                b = await _bio.GetBiometricData(data);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Error getting biometrics in service" + e);
+            }
+            msg.height = b.height.ToString();
+            msg.weight = b.weight.ToString();
+            msg.sex = b.sex.ToString();
+            msg.dob = b.dob.ToString();
+            return msg;
+
+        }
+
         private GetExerciseIntensityMsg CalculateIntensities(List<GetExerciseHeartRateMsg> list, Biometric bio)
         {
             string time;

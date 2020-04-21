@@ -6,6 +6,7 @@ using PulsePI.DataContracts;
 using PulsePI.Exceptions;
 using PulsePI.Models;
 using Microsoft.EntityFrameworkCore;
+using PulsePI.MessageContracts;
 
 namespace PulsePI.DataAccess
 {
@@ -53,6 +54,24 @@ namespace PulsePI.DataAccess
                 throw new CustomException("Error getting biometric record", ex);
             }
             return b;
+        }
+
+        public async Task<Biometric> GetBiometricData(UsernameData data)
+        {
+            Account acc = await _context.accounts.Where(x => x.username == data.username).FirstOrDefaultAsync();
+            if (acc == null) throw new CustomException("Account doesn't exist");
+
+            IQueryable<Biometric> b = null;
+            try
+            {
+                b = _context.biometrics.Where(x => x.accountId == acc.Id);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Error getting biometric data" + e);
+            }
+            return b.OrderByDescending(x => x.Date).FirstOrDefault();
+            
         }
 
     }

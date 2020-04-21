@@ -45,6 +45,22 @@ namespace PulsePI.Controllers
             }
             return Ok(intensity);
         }
+
+
+        [HttpPost("getBiometrics")]
+        public async Task<IActionResult> GetBiometricData([FromBody] UsernameData data)
+        {
+            GetBiometricDataMsg bio = null;
+            try
+            {
+                bio = await _BiometricService.GetBiometricData(data);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(bio);
+        }
     }
     
 }
