@@ -77,7 +77,7 @@ namespace PulsePI.Service
             msg.height = b.height.ToString();
             msg.weight = b.weight.ToString();
             msg.sex = b.sex.ToString();
-            msg.dob = b.dob.ToString();
+            msg.dob = b.dob.ToShortDateString();
             return msg;
 
         }
