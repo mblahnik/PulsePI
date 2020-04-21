@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataContracts;
@@ -63,7 +64,7 @@ namespace PulsePI.Service
 
         public async Task<GetBiometricDataMsg> GetBiometricData(UsernameData data)
         {
-            GetBiometricDataMsg msg = null;
+            GetBiometricDataMsg msg = new GetBiometricDataMsg();
             Biometric b = null;
             try
             {

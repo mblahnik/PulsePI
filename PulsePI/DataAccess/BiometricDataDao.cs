@@ -7,6 +7,7 @@ using PulsePI.Exceptions;
 using PulsePI.Models;
 using Microsoft.EntityFrameworkCore;
 using PulsePI.MessageContracts;
+using System.Collections.Generic;
 
 namespace PulsePI.DataAccess
 {
@@ -61,10 +62,10 @@ namespace PulsePI.DataAccess
             Account acc = await _context.accounts.Where(x => x.username == data.username).FirstOrDefaultAsync();
             if (acc == null) throw new CustomException("Account doesn't exist");
 
-            IQueryable<Biometric> b = null;
+            List<Biometric> b = null;
             try
             {
-                b = _context.biometrics.Where(x => x.accountId == acc.Id);
+                b = await _context.biometrics.Where(x => x.accountId == acc.Id).ToListAsync();
             }
             catch(Exception e)
             {
