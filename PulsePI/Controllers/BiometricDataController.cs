@@ -76,6 +76,21 @@ namespace PulsePI.Controllers
             }
             return Ok(msg);
         }
+
+        [HttpPost("getRanges")]
+        public async Task<IActionResult> GetRanges([FromBody] UsernameData data)
+        {
+            GetRangesMsg msg = null;
+            try
+            {
+                msg = await _BiometricService.GetRanges(data);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(msg);
+        }
     }
     
 }

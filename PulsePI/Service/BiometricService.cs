@@ -101,9 +101,34 @@ namespace PulsePI.Service
             msg.heartRateReserve = msg.maxHR - 70;
             double seventy = msg.heartRateReserve * 0.7 + 70;
             double eightFive = msg.heartRateReserve * 0.85 + 70;
-            msg.targetHR = (seventy + eightFive) / 2;
+            msg.targetHR = Math.Round((seventy + eightFive) / 2, 0);
             return msg;
 
+        }
+
+        public async Task<GetRangesMsg> GetRanges(UsernameData data)
+        {
+            GetRangesMsg msg = new GetRangesMsg();
+            Biometric bio = null;
+            try
+            {
+                bio = await _bio.GetMostRecentRecord(data);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error getting HR data in service" + e);
+            }
+            int age = CalculateAge(bio.dob);
+            int maxHR = 220 - age;
+            int heartRateReserve = maxHR - 70;
+
+            msg.fiftyPerc = heartRateReserve * 0.5 + 70;
+            msg.sixtyPerc = heartRateReserve * 0.6 + 70;
+            msg.seventyPerc = heartRateReserve * 0.7 + 70;
+            msg.eightyPerc = heartRateReserve * 0.8 + 70;
+            msg.ninetyPerc = heartRateReserve * 0.9 + 70;
+            msg.hundPerc = heartRateReserve * 1 + 70;
+            return msg;
         }
 
         private int CalculateAge(DateTime dob)
