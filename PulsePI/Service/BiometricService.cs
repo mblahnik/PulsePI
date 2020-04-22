@@ -60,7 +60,8 @@ namespace PulsePI.Service
             }
 
             int age = CalculateAge(bio.dob);
-            return CalculateIntensities(records, age);
+            int resting = await GetRestingHeartRate(data);
+            return CalculateIntensities(records, age, resting);
         }
 
         public async Task<GetBiometricDataMsg> GetBiometricData(UsernameData data)
@@ -118,16 +119,17 @@ namespace PulsePI.Service
             {
                 throw new CustomException("Error getting HR data in service" + e);
             }
+            int resting = await GetRestingHeartRate(data);
             int age = CalculateAge(bio.dob);
             int maxHR = 220 - age;
-            int heartRateReserve = maxHR - 70;
+            int heartRateReserve = maxHR - resting;
 
-            msg.fiftyPerc = Math.Round(heartRateReserve * 0.5 + 70, 0);
-            msg.sixtyPerc = Math.Round(heartRateReserve * 0.6 + 70, 0);
-            msg.seventyPerc = Math.Round(heartRateReserve * 0.7 + 70, 0);
-            msg.eightyPerc = Math.Round(heartRateReserve * 0.8 + 70, 0);
-            msg.ninetyPerc = Math.Round(heartRateReserve * 0.9 + 70, 0);
-            msg.hundPerc = Math.Round(heartRateReserve * 1.0 + 70, 0);
+            msg.fiftyPerc = Math.Round(heartRateReserve * 0.5 + resting, 0);
+            msg.sixtyPerc = Math.Round(heartRateReserve * 0.6 + resting, 0);
+            msg.seventyPerc = Math.Round(heartRateReserve * 0.7 + resting, 0);
+            msg.eightyPerc = Math.Round(heartRateReserve * 0.8 + resting, 0);
+            msg.ninetyPerc = Math.Round(heartRateReserve * 0.9 + resting, 0);
+            msg.hundPerc = Math.Round(heartRateReserve * 1.0 + resting, 0);
             return msg;
         }
 
@@ -137,7 +139,7 @@ namespace PulsePI.Service
             return today.Year - dob.Year;
         }
 
-        private GetExerciseIntensityMsg CalculateIntensities(List<GetExerciseHeartRateMsg> list, int age)
+        private GetExerciseIntensityMsg CalculateIntensities(List<GetExerciseHeartRateMsg> list, int age, int resting)
         {
             string time;
             double avgBmp;
@@ -148,7 +150,7 @@ namespace PulsePI.Service
             int i = 0;
 
 
-            List<PersonalIntensities> personalIntensities = GetPersonalIntensities(age);
+            List<PersonalIntensities> personalIntensities = GetPersonalIntensities(age, resting);
 
             foreach (GetExerciseHeartRateMsg msg in list)
             {
@@ -162,7 +164,7 @@ namespace PulsePI.Service
             return message;
         }
 
-        private List<PersonalIntensities> GetPersonalIntensities(int age)
+        private List<PersonalIntensities> GetPersonalIntensities(int age, int resting)
         {
             List<PersonalIntensities> list = new List<PersonalIntensities>();
             int i = 10;
@@ -171,7 +173,7 @@ namespace PulsePI.Service
             {
                 var pi = new PersonalIntensities();
                 pi.intensity = i;
-                pi.heartRate = target * ((double)i / 100.0) + 70;
+                pi.heartRate = target * ((double)i / 100.0) + resting;
                 i += 10;
                 list.Add(pi);
             }
@@ -207,6 +209,28 @@ namespace PulsePI.Service
         {
             public double intensity { get; set; }
             public double heartRate { get; set; } 
+        }
+
+        private async Task<int> GetRestingHeartRate(UsernameData data)
+        {
+            List<GetRestingHeartRateMsg> list = null;
+            try
+            {
+                list = await _heart.GetRestingHeartRateHistory(data);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("failed to get resting hr data" + e);
+            }
+
+            double sum = 0;
+            int count = 0;
+            foreach(GetRestingHeartRateMsg msg in list)
+            {
+                sum += msg.bpmAvg;
+                ++count;
+            }
+            return (int) sum / count;
         }
 
     }
