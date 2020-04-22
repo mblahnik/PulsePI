@@ -27,9 +27,9 @@ namespace PulsePI.Service
                 type = hr.type,
                 startTime = ConvertToDateTime(hr.startTime),
                 endTime = ConvertToDateTime(hr.endTime),
-                bpmLow = hr.bpmLow,
-                bpmHigh = hr.bpmHigh,
-                bpmAvg = hr.bpmAvg
+                bpmLow = Math.Round(hr.bpmLow, 0),
+                bpmHigh = Math.Round(hr.bpmHigh, 0),
+                bpmAvg = Math.Round(hr.bpmAvg, 0)
             };
 
             try

@@ -122,12 +122,12 @@ namespace PulsePI.Service
             int maxHR = 220 - age;
             int heartRateReserve = maxHR - 70;
 
-            msg.fiftyPerc = heartRateReserve * 0.5 + 70;
-            msg.sixtyPerc = heartRateReserve * 0.6 + 70;
-            msg.seventyPerc = heartRateReserve * 0.7 + 70;
-            msg.eightyPerc = heartRateReserve * 0.8 + 70;
-            msg.ninetyPerc = heartRateReserve * 0.9 + 70;
-            msg.hundPerc = heartRateReserve * 1 + 70;
+            msg.fiftyPerc = Math.Round(heartRateReserve * 0.5 + 70, 0);
+            msg.sixtyPerc = Math.Round(heartRateReserve * 0.6 + 70, 0);
+            msg.seventyPerc = Math.Round(heartRateReserve * 0.7 + 70, 0);
+            msg.eightyPerc = Math.Round(heartRateReserve * 0.8 + 70, 0);
+            msg.ninetyPerc = Math.Round(heartRateReserve * 0.9 + 70, 0);
+            msg.hundPerc = Math.Round(heartRateReserve * 1.0 + 70, 0);
             return msg;
         }
 
@@ -171,7 +171,7 @@ namespace PulsePI.Service
             {
                 var pi = new PersonalIntensities();
                 pi.intensity = i;
-                pi.heartRate = target * ((double)i / 100.0);
+                pi.heartRate = target * ((double)i / 100.0) + 70;
                 i += 10;
                 list.Add(pi);
             }
