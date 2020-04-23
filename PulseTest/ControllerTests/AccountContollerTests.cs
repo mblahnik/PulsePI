@@ -28,14 +28,13 @@ namespace PulseTest.ControllerTest{
             };
 
             //act 
-            IActionResult actionResult = mockController.Login(loginData);
-            var result = actionResult as OkNegotiatedContentResult<LoginData>;
+            var result = mockController.Login(loginData);
+            var result2 = result as OkObjectResult<LoginData>;
 
             //assert
 
-    Assert.NotNull(result);
-    Assert.Equals("login", result.RouteName);
-    Assert.Equals(loginData.username, result.RouteValues["mary"]);
+    Assert.NotNull(result2);
+    Assert.Equals(200, okResult.StatusCode);
         }
 
       }
