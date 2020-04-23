@@ -6,6 +6,7 @@ using PulsePI.DataContracts;
 using FluentAssertions;
 using PulsePI.Controllers;
 using PulsePI.Service;
+using PulsePI.Service.ServiceInterfaces;
 
 
 namespace PulseTest.ControllerTest{
@@ -13,24 +14,28 @@ namespace PulseTest.ControllerTest{
       public class AccountContollerTests{
 
 
- private Mock<I> mockAccountService = new Mock<IAccountService>();
+ private Mock<IAccountService> mockAccountService = new Mock<IAccountService>();
           [Fact]
 
         public void AccountController_Login_Test()
         {
             //arrange 
+            var mockController = new AccountController(mockAccountService.Object);
             var loginData = new LoginData()
             {
-                username = "boyland",
-                password = "boyland123"
+                username = "mary",
+                password = "mary123"
             };
 
             //act 
-            var response = mockAccountService.Object.Login(loginData);
+            IActionResult actionResult = mockController.Login(loginData);
+            var result = actionResult as OkNegotiatedContentResult<LoginData>;
 
             //assert
-            Assert.True(response.IsCompletedSuccessfully);
-            mockAccountService.Verify();
+
+    Assert.NotNull(result);
+    Assert.Equals("login", result.RouteName);
+    Assert.Equals(loginData.username, result.RouteValues["mary"]);
         }
 
       }
