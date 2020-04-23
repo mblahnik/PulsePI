@@ -29,11 +29,11 @@ namespace PulseTest.ControllerTest{
 
             //act 
             var result = mockController.Login(loginData);
-            var result2 = result as OkObjectResult<LoginData>;
+            var okResult = result as OkObjectResult<LoginData>;
 
             //assert
 
-    Assert.NotNull(result2);
+    Assert.NotNull(okResult);
     Assert.Equals(200, okResult.StatusCode);
         }
 
