@@ -45,6 +45,52 @@ namespace PulsePI.Controllers
             }
             return Ok(intensity);
         }
+
+
+        [HttpPost("getBiometrics")]
+        public async Task<IActionResult> GetBiometricData([FromBody] UsernameData data)
+        {
+            GetBiometricDataMsg bio = null;
+            try
+            {
+                bio = await _BiometricService.GetBiometricData(data);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(bio);
+        }
+
+        [HttpPost("getHRBounds")]
+        public async Task<IActionResult> GetHRBounds([FromBody] UsernameData data)
+        {
+            GetHRBoundsMsg msg = null;
+            try
+            {
+                msg = await _BiometricService.GetHRBounds(data);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(msg);
+        }
+
+        [HttpPost("getRanges")]
+        public async Task<IActionResult> GetRanges([FromBody] UsernameData data)
+        {
+            GetRangesMsg msg = null;
+            try
+            {
+                msg = await _BiometricService.GetRanges(data);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(msg);
+        }
     }
     
 }

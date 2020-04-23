@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using PulsePI.DataAccess.DaoInterfaces;
 using PulsePI.DataContracts;
@@ -20,6 +21,7 @@ namespace PulsePI.Service
             _bio = b;
             _heart = h;
         }
+
         public async Task CreateBiometric(BiometricData cbd)
         {
             var biometric = new Biometric()
@@ -30,6 +32,7 @@ namespace PulsePI.Service
                 sex = char.Parse(cbd.sex),
                 dob = DateTime.Parse(cbd.dob),
             };
+
             try
             {
                 await _bio.CreateBiometricData(biometric, cbd.username);
@@ -56,14 +59,89 @@ namespace PulsePI.Service
                 throw new CustomException("Error getting HR data in service" + e);
             }
 
-            return CalculateIntensities(records, bio);
+            int age = CalculateAge(bio.dob);
+            int resting = await GetRestingHeartRate(data);
+            return CalculateIntensities(records, age, resting);
         }
 
-        private GetExerciseIntensityMsg CalculateIntensities(List<GetExerciseHeartRateMsg> list, Biometric bio)
+        public async Task<GetBiometricDataMsg> GetBiometricData(UsernameData data)
+        {
+            GetBiometricDataMsg msg = new GetBiometricDataMsg();
+            Biometric b = null;
+            try
+            {
+                b = await _bio.GetBiometricData(data);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("Error getting biometrics in service" + e);
+            }
+            msg.height = b.height.ToString();
+            msg.weight = b.weight.ToString();
+            msg.sex = b.sex.ToString();
+            msg.dob = b.dob.ToShortDateString();
+            return msg;
+
+        }
+
+        public async Task<GetHRBoundsMsg> GetHRBounds(UsernameData data)
+        {
+            GetHRBoundsMsg msg = new GetHRBoundsMsg();
+            Biometric bio = null;
+            try
+            {
+                bio = await _bio.GetMostRecentRecord(data);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error getting HR data in service" + e);
+            }
+
+            int age = CalculateAge(bio.dob);
+            msg.maxHR = 220 - age;
+            msg.heartRateReserve = msg.maxHR - 70;
+            double seventy = msg.heartRateReserve * 0.7 + 70;
+            double eightFive = msg.heartRateReserve * 0.85 + 70;
+            msg.targetHR = Math.Round((seventy + eightFive) / 2, 0);
+            return msg;
+
+        }
+
+        public async Task<GetRangesMsg> GetRanges(UsernameData data)
+        {
+            GetRangesMsg msg = new GetRangesMsg();
+            Biometric bio = null;
+            try
+            {
+                bio = await _bio.GetMostRecentRecord(data);
+            }
+            catch (Exception e)
+            {
+                throw new CustomException("Error getting HR data in service" + e);
+            }
+            int resting = await GetRestingHeartRate(data);
+            int age = CalculateAge(bio.dob);
+            int maxHR = 220 - age;
+            int heartRateReserve = maxHR - resting;
+
+            msg.fiftyPerc = Math.Round(heartRateReserve * 0.5 + resting, 0);
+            msg.sixtyPerc = Math.Round(heartRateReserve * 0.6 + resting, 0);
+            msg.seventyPerc = Math.Round(heartRateReserve * 0.7 + resting, 0);
+            msg.eightyPerc = Math.Round(heartRateReserve * 0.8 + resting, 0);
+            msg.ninetyPerc = Math.Round(heartRateReserve * 0.9 + resting, 0);
+            msg.hundPerc = Math.Round(heartRateReserve * 1.0 + resting, 0);
+            return msg;
+        }
+
+        private int CalculateAge(DateTime dob)
+        {
+            var today = DateTime.Today;
+            return today.Year - dob.Year;
+        }
+
+        private GetExerciseIntensityMsg CalculateIntensities(List<GetExerciseHeartRateMsg> list, int age, int resting)
         {
             string time;
-            //Needs to come from bio eventually 
-            int age = 28;
             double avgBmp;
             double intensity;
             GetExerciseIntensityMsg message = new GetExerciseIntensityMsg();
@@ -71,7 +149,8 @@ namespace PulsePI.Service
             message.Percentages = new List<double>();
             int i = 0;
 
-            List<PersonalIntensities> personalIntensities = GetPersonalIntensities(age);
+
+            List<PersonalIntensities> personalIntensities = GetPersonalIntensities(age, resting);
 
             foreach (GetExerciseHeartRateMsg msg in list)
             {
@@ -85,7 +164,7 @@ namespace PulsePI.Service
             return message;
         }
 
-        private List<PersonalIntensities> GetPersonalIntensities(int age)
+        private List<PersonalIntensities> GetPersonalIntensities(int age, int resting)
         {
             List<PersonalIntensities> list = new List<PersonalIntensities>();
             int i = 10;
@@ -94,7 +173,7 @@ namespace PulsePI.Service
             {
                 var pi = new PersonalIntensities();
                 pi.intensity = i;
-                pi.heartRate = target * ((double)i / 100.0);
+                pi.heartRate = target * ((double)i / 100.0) + resting;
                 i += 10;
                 list.Add(pi);
             }
@@ -130,6 +209,28 @@ namespace PulsePI.Service
         {
             public double intensity { get; set; }
             public double heartRate { get; set; } 
+        }
+
+        private async Task<int> GetRestingHeartRate(UsernameData data)
+        {
+            List<GetRestingHeartRateMsg> list = null;
+            try
+            {
+                list = await _heart.GetRestingHeartRateHistory(data);
+            }
+            catch(Exception e)
+            {
+                throw new CustomException("failed to get resting hr data" + e);
+            }
+
+            double sum = 0;
+            int count = 0;
+            foreach(GetRestingHeartRateMsg msg in list)
+            {
+                sum += msg.bpmAvg;
+                ++count;
+            }
+            return (int) sum / count;
         }
 
     }

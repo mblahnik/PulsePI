@@ -13,6 +13,6 @@ namespace PulsePI.DataAccess.DaoInterfaces
     {
         Task<LoginMessage> Login(string username, string password);
         Task CreateAccount(Account a);
-        Task UpdateAccount(UpdateAccountData d);
+        Task<Account> UpdateAccount(UpdateAccountData d);
     }
 }
