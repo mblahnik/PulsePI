@@ -31,7 +31,5 @@ namespace PulseTest.ServiceTests
             Assert.True(response.IsCompletedSuccessfully);
             mockBiometricService.Verify();
         }
-
     }
-
 }
