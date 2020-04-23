@@ -36,6 +36,29 @@ namespace PulseTest.ControllerTest{
             Assert.True(result.IsCompletedSuccessfully);
         }
 
+            public void AccountController_CreateAccount_Test()
+        {
+            //arrange 
+            var mockController = new AccountController(mockAccountService.Object);
+          var createAccData = new CreateAccountData()
+            {
+                password = "password",
+                username = "username",
+                firstName = "firstName",
+                lastName = "lastName",
+                email = "test@email.com"
+            };
+            //act 
+            var result = mockController.CreateAccount(createAccData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
+
+        
+
+        
+
       }
 
 }
