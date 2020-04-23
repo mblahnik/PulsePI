@@ -14,12 +14,11 @@ using PulsePI.MessageContracts;
 
 namespace PulseTest.ControllerTest{
 
-      public class AccountContollerTests{
+      public class AccountContollerTests {
 
+        private Mock<IAccountService> mockAccountService = new Mock<IAccountService>();
 
- private Mock<IAccountService> mockAccountService = new Mock<IAccountService>();
-          [Fact]
-
+        [Fact]
         public void AccountController_Login_Test()
         {
             //arrange 
@@ -32,12 +31,9 @@ namespace PulseTest.ControllerTest{
 
             //act 
             var result = mockController.Login(loginData);
-            var okResult = result as OkObjectResult;
 
             //assert
-
-    Assert.NotNull(okResult);
-    Assert.True(200.Equals(okResult.StatusCode));
+            Assert.True(result.IsCompletedSuccessfully);
         }
 
       }
