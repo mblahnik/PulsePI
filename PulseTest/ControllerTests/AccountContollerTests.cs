@@ -7,6 +7,9 @@ using FluentAssertions;
 using PulsePI.Controllers;
 using PulsePI.Service;
 using PulsePI.Service.ServiceInterfaces;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using PulsePI.MessageContracts;
 
 
 namespace PulseTest.ControllerTest{
@@ -29,12 +32,12 @@ namespace PulseTest.ControllerTest{
 
             //act 
             var result = mockController.Login(loginData);
-            var okResult = result as OkObjectResult<LoginData>;
+            var okResult = result as OkObjectResult;
 
             //assert
 
     Assert.NotNull(okResult);
-    Assert.Equals(200, okResult.StatusCode);
+    Assert.True(200.Equals(okResult.StatusCode));
         }
 
       }
