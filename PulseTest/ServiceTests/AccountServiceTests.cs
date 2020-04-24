@@ -47,6 +47,14 @@ namespace PulseTest.ServiceTests
             mockAccountService.Verify();
         }
 
-    }
 
+    public void AccountService_UpdateAccount_Test()
+    {
+var updateAccData = new UpdateAccountData();
+    
+var response = mockAccountService.Object.UpdateAccount(updateAccData);
+       Assert.True(response.IsCompletedSuccessfully);
+            mockAccountService.Verify();
+    }
+}
 }
