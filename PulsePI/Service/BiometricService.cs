@@ -98,10 +98,11 @@ namespace PulsePI.Service
             }
 
             int age = CalculateAge(bio.dob);
+            int resting = await GetRestingHeartRate(data);
             msg.maxHR = 220 - age;
-            msg.heartRateReserve = msg.maxHR - 70;
-            double seventy = msg.heartRateReserve * 0.7 + 70;
-            double eightFive = msg.heartRateReserve * 0.85 + 70;
+            msg.heartRateReserve = msg.maxHR - resting;
+            double seventy = msg.heartRateReserve * 0.7 + resting;
+            double eightFive = msg.heartRateReserve * 0.85 + resting;
             msg.targetHR = Math.Round((seventy + eightFive) / 2, 0);
             return msg;
 
