@@ -31,5 +31,75 @@ namespace PulseTest.ServiceTests
             Assert.True(response.IsCompletedSuccessfully);
             mockBiometricService.Verify();
         }
+[Fact]
+ public void BiometricService_GetIntensities_Test()
+        {
+            //arrange 
+            var IntensitiesData = new UsernameData()
+            {
+                username = "mock123",
+            };
+
+            //act 
+            var response = mockBiometricService.Object.GetIntensities(IntensitiesData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockBiometricService.Verify();
+        }
+
+        [Fact]
+ public void BiometricService_GetBiometricData_Test()
+        {
+            //arrange 
+            var BiometricData = new UsernameData()
+            {
+                username = "test",
+            };
+
+            //act 
+            var response = mockBiometricService.Object.GetBiometricData(BiometricData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockBiometricService.Verify();
+        }
+
+         [Fact]
+ public void BiometricService_GetHRBounds_Test()
+        {
+            //arrange 
+            var BiometricData = new UsernameData()
+            {
+                username = "sally",
+            };
+
+            //act 
+            var response = mockBiometricService.Object.GetHRBounds(BiometricData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockBiometricService.Verify();
+        }
+
+        [Fact]
+ public void BiometricService_GetRanges_Test()
+        {
+            //arrange 
+            var BiometricData = new UsernameData()
+            {
+                username = "potato",
+            };
+
+            //act 
+            var response = mockBiometricService.Object.GetRanges(BiometricData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockBiometricService.Verify();
+        }
+        
+
     }
+
 }

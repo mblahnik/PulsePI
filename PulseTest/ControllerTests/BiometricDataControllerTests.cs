@@ -37,7 +37,66 @@ namespace PulseTest.ControllerTest{
             //assert
             Assert.True(result.IsCompletedSuccessfully);
         }
+
+        [Fact]
+        public void BiometricService_GetIntensities_Test()
+        {
+            //arrange 
+                var biometricData = new UsernameData()
+            {
+                username = "yikes",
+            };
+            //act 
+            var result = mockBiometricService.Object.GetIntensities(biometricData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
       
+[Fact]
+        public void BiometricService_GetBiometricData_Test()
+        {
+            //arrange 
+                var biometricData = new UsernameData()
+            {
+                username = "newone",
+            };
+            //act 
+            var result = mockBiometricService.Object.GetBiometricData(biometricData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
+      
+      [Fact]
+        public void BiometricService_GetHRBounds_Test()
+        {
+            //arrange 
+                var biometricData = new UsernameData()
+            {
+                username = "newone2",
+            };
+            //act 
+            var result = mockBiometricService.Object.GetHRBounds(biometricData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
+
+         [Fact]
+        public void BiometricService_GetRanges_Test()
+        {
+            //arrange 
+                var biometricData = new UsernameData()
+            {
+                username = "newone3",
+            };
+            //act 
+            var result = mockBiometricService.Object.GetRanges(biometricData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
 
       }
 

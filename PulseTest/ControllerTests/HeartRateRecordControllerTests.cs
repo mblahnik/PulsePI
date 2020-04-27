@@ -41,6 +41,74 @@ namespace PulseTest.ControllerTest{
             //assert
             Assert.True(result.IsCompletedSuccessfully);
         }
+
+         [Fact]
+        public void HeartRateRecordController_GetAllHeartRateData_Test()
+        {
+            //arrange 
+            var mockController = new HeartRateRecordController();
+             var heartRateRecordData = new UsernameData()
+            {
+                username = "microsoft",
+            };
+
+            //act 
+            var result = mockHeartRateRecordService.Object.GetAllHeartRateData(heartRateRecordData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
+      
+           [Fact]
+        public void HeartRateRecordController_GetRestingRates_Test()
+        {
+            //arrange 
+            var mockController = new HeartRateRecordController();
+             var heartRateRecordData = new UsernameData()
+            {
+                username = "microsoft",
+            };
+
+            //act 
+            var result = mockHeartRateRecordService.Object.GetRestingRates(heartRateRecordData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
+      
+           [Fact]
+        public void HeartRateRecordController_GetExerciseHeartRateHistory_Test()
+        {
+            //arrange 
+            var mockController = new HeartRateRecordController();
+             var heartRateRecordData = new UsernameData()
+            {
+                username = "microsoft",
+            };
+
+            //act 
+            var result = mockHeartRateRecordService.Object.GetExerciseHeartRateHistory(heartRateRecordData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
+      
+           [Fact]
+        public void HeartRateRecordController_GetRestingHeartRateHistory_Test()
+        {
+            //arrange 
+            var mockController = new HeartRateRecordController();
+             var heartRateRecordData = new UsernameData()
+            {
+                username = "google",
+            };
+
+            //act 
+            var result = mockHeartRateRecordService.Object.GetRestingHeartRateHistory(heartRateRecordData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
       
 
       }

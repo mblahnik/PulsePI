@@ -35,7 +35,75 @@ namespace PulseTest.ServiceTests
             Assert.True(response.IsCompletedSuccessfully);
             mockHeartRateRecordService.Verify();
         }
+[Fact]
+        public void HeartRateRecordService_GetAllHeartRateData_Test()
+        {
+            //arrange 
+            var heartRateRecordData = new UsernameData()
+            {
+                username = "wolfmuffin",
+            };
 
+            //act 
+            var response = mockHeartRateRecordService.Object.GetAllHeartRateData(heartRateRecordData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockHeartRateRecordService.Verify();
+        }
+
+        [Fact]
+        public void HeartRateRecordService_GetRestingHeartRateHistory_Test()
+        {
+            //arrange 
+            var heartRateRecordData = new UsernameData()
+            {
+                username = "tomato17",
+            };
+
+            //act 
+            var response = mockHeartRateRecordService.Object.GetRestingHeartRateHistory(heartRateRecordData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockHeartRateRecordService.Verify();
+        }
+
+
+[Fact]
+        public void HeartRateRecordService_GetExerciseHeartRateHistory_Test()
+        {
+            //arrange 
+            var heartRateRecordData = new UsernameData()
+            {
+                username = "catfish",
+            };
+
+            //act 
+            var response = mockHeartRateRecordService.Object.GetExerciseHeartRateHistory(heartRateRecordData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockHeartRateRecordService.Verify();
+        }
+
+
+[Fact]
+        public void HeartRateRecordService_GetRestingRates_Test()
+        {
+            //arrange 
+            var heartRateRecordData = new UsernameData()
+            {
+                username = "batman",
+            };
+
+            //act 
+            var response = mockHeartRateRecordService.Object.GetRestingRates(heartRateRecordData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockHeartRateRecordService.Verify();
+        }
     }
 
 }
