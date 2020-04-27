@@ -60,7 +60,7 @@ namespace PulsePI.DataAccess
                         endTime = x.endTime.ToString(),
                         bpmLow = x.bpmLow,
                         bpmHigh = x.bpmHigh,
-                        bpmAvg = x.bpmAvg
+                        bpmAvg = Math.Round(x.bpmAvg, 0)
                     }).ToListAsync();
             }
             catch (Exception e)
@@ -86,7 +86,7 @@ namespace PulsePI.DataAccess
                         endTime = x.endTime.ToString(),
                         bpmLow = x.bpmLow,
                         bpmHigh = x.bpmHigh,
-                        bpmAvg = x.bpmAvg
+                        bpmAvg = Math.Round(x.bpmAvg, 0)
                     }).ToListAsync();
             }
             catch (Exception e)
@@ -112,7 +112,7 @@ namespace PulsePI.DataAccess
                         endTime = x.endTime.ToString(),
                         bpmLow = x.bpmLow,
                         bpmHigh = x.bpmHigh,
-                        bpmAvg = x.bpmAvg
+                        bpmAvg = Math.Round(x.bpmAvg, 0)
                     }).ToListAsync();
             }
             catch (Exception e)
