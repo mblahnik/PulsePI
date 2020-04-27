@@ -31,9 +31,23 @@ namespace PulseTest.ServiceTests
             Assert.True(response.IsCompletedSuccessfully);
             mockBiometricService.Verify();
         }
+[Fact]
+ public void BiometricService_GetIntensity_Test()
+        {
+            //arrange 
+            var IntensityData = new UsernameData()
+            {
+                username = "jack",
+            };
+
+            //act 
+            var response = mockBiometricService.Object.CreateBiometric(biometricData);
+
+            //assert
+            Assert.True(response.IsCompletedSuccessfully);
+            mockBiometricService.Verify();
+        }
 
     }
-[Fact]
-
 
 }

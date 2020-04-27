@@ -50,7 +50,15 @@ namespace PulseTest.ServiceTests
     [Fact]
     public void AccountService_UpdateAccount_Test()
     {
-var updateAccData = new UpdateAccountData();
+var updateAccData = new UpdateAccountData(){
+                username = "username",
+                firstName = "firstName",
+                middleName = "middleName",
+                lastName = "lastName",
+                email = "test@email.com",
+                avatarUrl = "elsa.jpg",
+
+};
     
 var response = mockAccountService.Object.UpdateAccount(updateAccData);
        Assert.True(response.IsCompletedSuccessfully);
