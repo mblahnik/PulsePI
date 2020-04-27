@@ -41,7 +41,7 @@ namespace PulseTest.ServiceTests
             };
 
             //act 
-            var response = mockBiometricService.Object.CreateBiometric(biometricData);
+            var response = mockBiometricService.Object.GetIntensities(IntensityData);
 
             //assert
             Assert.True(response.IsCompletedSuccessfully);
