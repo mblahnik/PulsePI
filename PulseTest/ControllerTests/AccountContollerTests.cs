@@ -55,6 +55,26 @@ namespace PulseTest.ControllerTest{
             Assert.True(result.IsCompletedSuccessfully);
         }
 
+         public void AccountController_UpdateAccount_Test()
+        {
+            //arrange 
+            var mockController = new AccountController(mockAccountService.Object);
+          var updateAccData = new UpdateAccountData()
+            {
+                username = "sweetpotato",
+                firstName = "Tom",
+                middleName = "George",
+                lastName = "Trumpp",
+                email = "tomtrumpp123@email.com",
+                  avatarUrl = "elsa.jpg",
+            };
+            //act 
+            var result = mockController.UpdateAccount(updateAccData);
+
+            //assert
+            Assert.True(result.IsCompletedSuccessfully);
+        }
+
       
 
       }
