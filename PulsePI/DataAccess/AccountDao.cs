@@ -25,6 +25,8 @@ namespace PulsePI.DataAccess
             try
             {
           acc = await _context.accounts.Where(x =>x.username == username).FirstOrDefaultAsync();
+           if (acc != null && String.Compare(acc.password, password) != 0) 
+  throw new CustomException("Wrong password");
             }
             catch (Exception e)
             {
@@ -34,8 +36,7 @@ namespace PulsePI.DataAccess
 
             if (acc == null) throw new CustomException("Account not found");
 
-  if (acc != null && String.Compare(acc.password, password) != 0) 
-  throw new CustomException("Wrong password");
+
   
 
                    return new LoginMessage(acc.username, acc.firstName, acc.lastName,
