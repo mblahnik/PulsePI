@@ -24,17 +24,21 @@ namespace PulsePI.DataAccess
             Account acc;
             try
             {
-                acc = await _context.accounts.Where(x => (x.username == username) &&
-                (x.password == password)).FirstOrDefaultAsync();
+          acc = await _context.accounts.Where(x =>x.username == username).FirstOrDefaultAsync();
             }
             catch (Exception e)
             {
                 throw new CustomException("Database error at login", e);
             }
 
+
             if (acc == null) throw new CustomException("Account not found");
 
-            return new LoginMessage(acc.username, acc.firstName, acc.lastName,
+  if (acc != null && String.Compare(acc.password, password) != 0) 
+  throw new CustomException("Wrong password");
+  
+
+                   return new LoginMessage(acc.username, acc.firstName, acc.lastName,
                 acc.middleName, acc.birthDate, acc.avatarUrl, acc.email);
         }
 
